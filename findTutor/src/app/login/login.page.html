@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Find Your Tutor</ion-title>
+      <ion-buttons slot="end">
+      <ion-button (click)="signup()">Sign Up</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form>
+    <!-- <form [formGroup]="new_item_form" (submit)="login(new_item_form.value)"> -->
+       <ion-item>
+          <ion-label color="primary" position="floating">Email: </ion-label>
+          <ion-input type="text" ></ion-input>
+          <!-- <ion-input type="text" formControlName="email" required></ion-input> -->
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">Password: </ion-label>
+          <ion-input type="text" ></ion-input>
+          <!-- <ion-input type="text" formControlName="password" required></ion-input> -->
+        </ion-item>
+        <ion-item>
+          <ion-button class="submit-btn" type="submit" (click)="tutorLogin()">Tutor Login</ion-button>
+          <ion-button class="submit-btn" type="submit" (click)="studentLogin()">Student Login</ion-button>
+        </ion-item>
+        <!-- <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_item_form.valid">Login</ion-button> -->
+    </form>
+</ion-content>
