@@ -1,5 +1,7 @@
 {
   "name": "findTutor",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
