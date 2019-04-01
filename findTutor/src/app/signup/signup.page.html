@@ -1,11 +1,35 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Sign up</ion-title>
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-      <p>TODO: sign up with email, Facebook or Google account. If successfuuly signed up, navigate to the log in page</p>
-  </ion-item>
+    <div align="CENTER">
+        <i><b>Note:</b> Must use valid email. Password must be at least 6 characters long.</i>
+      </div>
+      <form [formGroup]="new_user_form" (submit)="createNewUser(new_user_form.value)">
+          <!--Email-->
+          <ion-item>
+            <ion-label color="primary" position="floating">Email: </ion-label>
+            <ion-input type="text" formControlName="email" required></ion-input>
+          </ion-item>
+          <!--Password-->
+          <ion-item>
+            <ion-label color="primary" position="floating">Password: </ion-label>
+            <ion-input type="text" formControlName="password" required></ion-input>
+          </ion-item>
+          <!--User Type-->
+          <ion-item>
+            <ion-label color="primary" position="floating">User Type</ion-label>
+            <ion-select formControlName="usertype" placeholder="Select One" required>
+              <ion-select-option value="tutor">Tutor</ion-select-option>
+              <ion-select-option value="student">Student</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_user_form.valid">Submit</ion-button>
+      </form>
 </ion-content>
