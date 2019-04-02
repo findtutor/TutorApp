@@ -8,26 +8,23 @@
 </ion-header>
 
 <ion-content padding>
-    <form>
-    <!-- <form [formGroup]="new_item_form" (submit)="login(new_item_form.value)"> -->
+    <form [formGroup]="login_form" (submit)="login(login_form.value)">
        <ion-item>
           <ion-label color="primary" position="floating">Email: </ion-label>
-          <ion-input type="text" ></ion-input>
-          <!-- <ion-input type="text" formControlName="email" required></ion-input> -->
+          <ion-input type="text" formControlName="email" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label color="primary" position="floating">Password: </ion-label>
-          <ion-input type="text" ></ion-input>
-          <!-- <ion-input type="text" formControlName="password" required></ion-input> -->
+          <ion-input type="text" formControlName="password" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-button class="submit-btn" type="submit" (click)="tutorLogin()">Tutor Login</ion-button>
-          <ion-button class="submit-btn" type="submit" (click)="studentLogin()">Student Login</ion-button>
+            <ion-label color="primary" position="floating">User Type</ion-label>
+            <ion-select formControlName="usertype" placeholder="Select One" required>
+              <ion-select-option value="tutor">Tutor</ion-select-option>
+              <ion-select-option value="student">Student</ion-select-option>
+            </ion-select>
         </ion-item>
-        <!-- <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_item_form.valid">Login</ion-button> -->
+        <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!login_form.valid">Login</ion-button>
     </form>
-
-    <ion-item>
-        <p>TODO: when user login, check whether they have selected the correct user type</p>
-    </ion-item>
 </ion-content>
+
