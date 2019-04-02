@@ -9,6 +9,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class ItemService {
 
+  myusers =[];
+  usertype="student"; //by default
   // courses:Observable<any[]>;
   // database: AngularFirestore;
 
@@ -17,6 +19,13 @@ export class ItemService {
       // this.database=db;
       // console.log("loading saved items and orders");
       // this.courses = db.collection('courses').valueChanges();
+      let users = db.collection('users').valueChanges();
+      console.log(users);
+      users.subscribe(items => {
+        this.myusers = items;
+        // this.mycartitems = snapshotToArray(items);
+        console.log(this.myusers.length);
+      });
      }
 
   // createCourse(name, price, description){
@@ -29,6 +38,21 @@ export class ItemService {
   //     "description":description
   //   });
   // }
+
+  getusertype(userid){
+    // console.log(this.myusers.length +" users found");
+    // console.log(userid);
+    for (var i = this.myusers.length - 1; i >= 0; i--) {
+      console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
+      if(this.myusers[i].uid == userid){
+        console.log(this.myusers[i].email +" "+this.myusers[i].usertype);
+        this.usertype = this.myusers[i].usertype;
+        return this.myusers[i].usertype;
+
+      }
+      
+    }
+  }
 
   createUser(user) {
     console.error("creating user data with this information...\npassword: " + user.password + "\nemail: " + user.email + "\nusertype: " + user.usertype);
