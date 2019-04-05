@@ -58,7 +58,7 @@ export class EditTutorProfilePage implements OnInit {
       username: value.username,
       contact_info: value.contact_info,
       field: value.contact_info,
-      introduction: value.contact_info
+      introduction: value.introduction
     }
     this.itemService.updateProfile(newProfile);
   }

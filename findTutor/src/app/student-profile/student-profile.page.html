@@ -1,14 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Profile</ion-title>
+    <ion-title class="header">Profile</ion-title>
     <ion-buttons slot="end">
-        <ion-button (click)="updateStudentProfile()">Edit Profile</ion-button>
+        <ion-button class="header" (click)="updateStudentProfile(profile)">Edit Profile</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-      <p>TODO:image, contact info, email, username</p>
-  </ion-item>
+  <ion-content>
+    <div id="upperhalf">
+        <ion-avatar id="avatar">
+            <img [src]="profile.image">
+        </ion-avatar>
+        <p id="username"><strong>{{profile.username}}</strong></p>
+    </div>
+      
+    <p class="info"><ion-icon name="ios-call"></ion-icon><strong> Contact Info: </strong>{{profile.contact_info}}</p>
+    <p class="info"><ion-icon name="md-mail"></ion-icon><strong> Email: </strong>{{profile.email}}</p>
+   
 </ion-content>

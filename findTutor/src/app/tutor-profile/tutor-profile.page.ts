@@ -5,7 +5,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
-import { Profile } from 'selenium-webdriver/firefox';
 
 @Component({
   selector: 'app-tutor-profile',
