@@ -5,79 +5,24 @@
 </ion-header>
 
 <ion-content>
-	<ion-searchbar placeholder="search a course you like" [(ngModel)]="searchKey" [showCancelButton]="true" (ionInput)="getItems($event)" (ionClear)="resetChanges()"></ion-searchbar>
-<!--<ion-list>-->
-  <!--<ion-item *ngFor="let category of categoryList">-->
-    <!--<h2> {{ category.name }} </h2>-->
-    <!--<h3> Code: <strong>{{ category.name }}</strong> </h3>-->
+	<ion-searchbar placeholder="search a course you like" [showCancelButton]="true" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let category of categoryList">
+      <h2> {{ category.name }} </h2>
+    </ion-item>
+  </ion-list>
+  <!--<ion-item>-->
+    <!--<p>TODO: search related courses/browse a list of available courses. Need categoryDetailPage!!</p>-->
   <!--</ion-item>-->
-<!--</ion-list>-->
-
-  <ion-item>
-    <p>TODO: search related courses/browse a list of available courses. Need categoryDetailPage!!</p>
-  </ion-item>
-  <!--<div class="row row-wrap">-->
-    <!--<div class="col col-25 iconBox" *ngFor="let category of categories">-->
-      <!--<div class="imgBox">-->
-        <!--<ion-icon [src]="category.imgurl" class="iconImg"></ion-icon>-->
-      <!--</div>-->
-      <!--<a class="iconName">{{category.name}}</a>-->
-    <!--</div>-->
-  <!--</div>-->
-
-  <!--以下为目标代码-->
-  <!--<ion-grid>-->
-  <!--<ion-row *ngFor="let rowList of getRowListByGridList(2)">-->
-    <!--<ion-col *ngFor="let category of rowList">-->
-      <!--<ion-card>-->
-        <!--<img [src]="category.imgurl" (click)="categoryDetailPage(category)" />-->
-        <!--<div>{{ category.name }}</div>-->
-      <!--</ion-card>-->
-    <!--</ion-col>-->
-  <!--</ion-row>-->
-  <!--</ion-grid>-->
-
-  <!--<div >-->
-    <!--<div class="col col-wrap iconBox" *ngFor="let category of categories">-->
-      <!--<div class="imgRow">-->
-        <!--<ion-card class="imgBox">-->
-          <!--<img class="iconImg" [src]="category.imgurl" (click)="categoryDetailPage(category)" />-->
-          <!--<div class="card-title" >{{ category.name }}</div>-->
-        <!--</ion-card>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;<a class="iconName">{{category.name}}</a>&ndash;&gt;-->
-    <!--</div>-->
-  <!--</div>-->
-
-
-
-  <div class="row row-wrap" *ngFor="let row of rowList">
-    <div class="col-25" *ngFor="let category of row">
-      <ion-card>
-        <img class="col-25 imgBox" [src]="category.imgurl" (click)="categoryDetailPage(category)" />
-        <div>{{ category.name }}</div>
-      </ion-card>
-    </div>
-  </div>
-<!--下面这段是成功的一种-->
-  <!--<ion-list>-->
-    <!--<ion-item *ngFor="let category of categories">-->
-      <!--<ion-row><ion-item>-->
-        <!--<ion-card>-->
-          <!--<img [src]="category.imgurl" (click)="categoryDetailPage(category)" />-->
-          <!--<div class="card-title">{{ category.name }}</div>-->
-        <!--</ion-card>-->
-      <!--</ion-item>-->
-      <!--</ion-row>-->
-    <!--</ion-item>-->
-  <!--</ion-list>-->
-
-  <!--新尝试-->
-  <!--<div class="row row-wrap">-->
-    <!--<div class="col-25" *ngFor="let category of categories">-->
-      <!--<img class="col-25 imgBox" [src]="category.imgurl" ng-click="categoryDetailPage(category)">-->
-      <!--<a class="iconName">{{category.name}}</a>-->
-    <!--</div>-->
-  <!--</div>-->
+  <ion-grid>
+    <ion-row *ngFor="let row of rowList">
+      <ion-col *ngFor="let category of row">
+        <ion-card class="iconBox">
+          <img class="iconBox imgBox iconImg" [src]="category.imgurl" (click)="categoryDetailPage(category)" />
+          <div class="iconBox card-title">{{ category.name }}</div>
+        </ion-card>
+      </ion-col>
+      </ion-row>
+  </ion-grid>
 
 </ion-content>
