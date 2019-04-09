@@ -5,7 +5,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <p>TODO: search related courses/browse a list of available courses</p>
-  </ion-item>
+	<ion-searchbar placeholder="search a course you like" [showCancelButton]="true" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let category of categoryList">
+      <h2> {{ category.name }} </h2>
+    </ion-item>
+  </ion-list>
+  <!--<ion-item>-->
+    <!--<p>TODO: search related courses/browse a list of available courses. Need categoryDetailPage!!</p>-->
+  <!--</ion-item>-->
+  <ion-grid>
+    <ion-row *ngFor="let row of rowList">
+      <ion-col *ngFor="let category of row">
+        <ion-card class="iconBox">
+          <img class="iconBox imgBox iconImg" [src]="category.imgurl" (click)="categoryDetailPage(category)" />
+          <div class="iconBox card-title">{{ category.name }}</div>
+        </ion-card>
+      </ion-col>
+      </ion-row>
+  </ion-grid>
+
 </ion-content>
