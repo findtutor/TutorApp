@@ -10,7 +10,8 @@ import { ItemService } from '../item.service';
 })
 export class AddCoursePage implements OnInit {
 
-  // new_course_form: FormGroup;
+  new_course_form: FormGroup;
+
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -18,22 +19,30 @@ export class AddCoursePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.new_course_form = this.formBuilder.group({
-    //   name: new FormControl('', Validators.required),
-    //   price: new FormControl('', Validators.required),
-    //   description: new FormControl('', Validators.required),
-    // });
+    this.new_course_form = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      start_time: new  FormControl('', Validators.required),
+      end_time: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required),
+    });
   }
 
-  // createItem(value){
-  // 	//save the item, and then go back
-  //   this.itemService.createCourse(value.name, value.price, value.description);
+  createCourse(value){
+    this.itemService.createCourse(
+      value.name, 
+      value.category,
+      value.description,
+      value.start_time,
+      value.end_time,
+      value.price, 
+      );
+  	this.goBack();
+  }
 
-  // 	this.goBack();
-  // }
-
-  // goBack(){
-  // 	    this.router.navigate(['/tutor-course']);
-  // }
+  goBack(){
+  	    this.router.navigate(['/tutor-course']);
+  }
 
 }

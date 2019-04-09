@@ -128,4 +128,18 @@ export class ItemService {
     console.log("new profile id = " + newProfile.id);
     let newInfo = firebase.database().ref('profiles/' + newProfile.id).update(newProfile);
   }
+
+  createCourse(name, category, description, start_time, end_time, price) {
+    let ownerid = firebase.auth().currentUser.uid;
+
+    this.db.collection('courses').add({
+      "ownerid":ownerid, 
+      "name":name, 
+      "category":category, 
+      "description":description,
+      "start_time": start_time,
+      "end_time": end_time,
+      "price": price, 
+    });
+  }
 }
