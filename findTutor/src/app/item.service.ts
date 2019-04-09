@@ -7,8 +7,7 @@ import * as firebase from 'firebase';
 import { provideLocationStrategy } from '@angular/router/src/router_module';
 //import { Observable } from 'rxjs';
 //import * as firebase from 'Firebase';
-import { Observable } from 'rxjs';
-import * as firebase from 'firebase';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +20,7 @@ export class ItemService {
 
   myprofiles = [];
   myusers =[];
-  usertype= "student"; //by default
-  categories:Observable<any[]>;
+  usertype="student"; //by default
   // courses:Observable<any[]>;
   // database: AngularFirestore;
 
@@ -42,7 +40,6 @@ export class ItemService {
       // this.database=db;
       // console.log("loading saved items and orders");
       // this.courses = db.collection('courses').valueChanges();
-      this.categories = db.collection('categories').valueChanges();
       let users = db.collection('users').valueChanges();
       console.log(users);
       users.subscribe(items => {
@@ -76,10 +73,6 @@ export class ItemService {
       }
       
     }
-  }
-  getCategories(){
-    console.log('getting categories...' + this.categories);
-    return this.categories;
   }
 
   createUser(user) {
