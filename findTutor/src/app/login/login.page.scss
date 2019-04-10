@@ -1,0 +1,53 @@
+ion-content{
+    --ion-background-color:rgb(107, 174, 198);
+}
+
+ion-toolbar{
+    background-color:rgb(107, 174, 198);
+}
+
+#logo {
+    font-family: 'Fascinate Inline', cursive;
+    font-style: normal;
+    font-size: 80px;
+    color: white;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 1px;
+}
+
+#subtitle {
+    font-family: 'Indie Flower', cursive;
+    font-style: normal;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-top: 0;
+}
+
+ion-input {
+    --ion-background-color: transparent;
+    // border-radius: 15px;
+}
+
+ion-item{
+    --ion-background-color:#fff;
+    margin-bottom: 10px;
+ }
+
+.input {
+    background-color: transparent;
+}
+
+ion-button {
+    border: 3px solid white;
+    border-radius: 15px;
+    color: white;
+}
+
+.form {
+    width: 95%;
+    padding-top: 10px;
+    padding-left: 13px;
+}
+
