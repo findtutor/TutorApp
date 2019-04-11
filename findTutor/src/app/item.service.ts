@@ -21,12 +21,14 @@ export class ItemService {
   myprofiles = [];
   myusers =[];
   usertype="student"; //by default
-  // courses:Observable<any[]>;
+  courses:Observable<any[]>;
+
   // database: AngularFirestore;
+  public current_user;
 
   constructor(
     public db: AngularFirestore,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
     ) {
       this.database = db;
       let profiles = db.collection('profiles').valueChanges();
@@ -61,10 +63,8 @@ export class ItemService {
   // }
 
   getusertype(userid){
-    // console.log(this.myusers.length +" users found");
-    // console.log(userid);
     for (var i = this.myusers.length - 1; i >= 0; i--) {
-      console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
+     // console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
       if(this.myusers[i].uid == userid){
         console.log(this.myusers[i].email +" "+this.myusers[i].usertype);
         this.usertype = this.myusers[i].usertype;
@@ -141,5 +141,16 @@ export class ItemService {
       "end_time": end_time,
       "price": price, 
     });
+  }
+
+  loadTutorCourse(currentuserid) {
+    console.log("cur user  id is " + currentuserid);// undefined
+    this.courses = this.database.collection('courses',ref => ref.where('ownerid', '==', currentuserid)).valueChanges();
+    return this.courses;
+  }
+
+  deleteCourse(courseid){
+    let newInfo = firebase.database().ref('courses/'+courseid).remove();
+    console.log("Course deleted:"+courseid)
   }
 }
