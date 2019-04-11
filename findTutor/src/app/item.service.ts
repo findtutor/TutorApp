@@ -4,9 +4,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase';
-import { provideLocationStrategy } from '@angular/router/src/router_module';
-//import { Observable } from 'rxjs';
-//import * as firebase from 'Firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -15,31 +12,38 @@ export class ItemService {
 
   database: AngularFirestore;
   profiles: Observable<any[]>;
-  
-  profiledb = firebase.database().ref('profiles');
-
+  courses: Observable<any[]>;
   myprofiles = [];
   myusers =[];
+  mycourses = []
   usertype="student"; //by default
-  // courses:Observable<any[]>;
+
+  profiledb = firebase.database().ref('profiles');
+  
   // database: AngularFirestore;
 
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth
     ) {
+      // load profiles from firebase
       this.database = db;
       let profiles = db.collection('profiles').valueChanges();
-      console.log("profiles = " + this.profiles);
+      console.log("profiles = " + profiles);
       profiles.subscribe(items => {
         this.myprofiles = items;
         console.log("myprofiles = " + this.myprofiles); 
       });
 
-
-      // this.database=db;
-      // console.log("loading saved items and orders");
-      // this.courses = db.collection('courses').valueChanges();
+      // load courses from firebase
+      let courses = db.collection('courses').valueChanges();
+      console.log("courses = " + courses);
+      courses.subscribe(items => {
+        this.mycourses = items;
+        console.log("mycourses = " + this.mycourses); 
+      });
+      
+      // load users from firebase
       let users = db.collection('users').valueChanges();
       console.log(users);
       users.subscribe(items => {
@@ -49,17 +53,10 @@ export class ItemService {
       });
      }
 
-  // createCourse(name, price, description){
-  //   let ownerid =firebase.auth().currentUser.uid;
 
-  //   this.db.collection('/items').add({
-  //     "ownerid":ownerid, 
-  //     "name":name, 
-  //     "price": price, 
-  //     "description":description
-  //   });
-  // }
-
+  // ********************************************************************
+  // ************  User(tutor/student) related API: *********************
+  // ********************************************************************
   getusertype(userid){
     // console.log(this.myusers.length +" users found");
     // console.log(userid);
@@ -111,6 +108,9 @@ export class ItemService {
     });
   }
 
+  // ********************************************************************
+  // *****************  Profile related API: *****************************
+  // ********************************************************************
   getProfile(currentUser) {
     console.log("cur user  id is " + currentUser.id);// undefined
     for(let profile of this.myprofiles) {
@@ -129,9 +129,11 @@ export class ItemService {
     let newInfo = firebase.database().ref('profiles/' + newProfile.id).update(newProfile);
   }
 
+  // ********************************************************************
+  // *****************  Course related API: *****************************
+  // ********************************************************************
   createCourse(name, category, description, start_time, end_time, price) {
     let ownerid = firebase.auth().currentUser.uid;
-
     this.db.collection('courses').add({
       "ownerid":ownerid, 
       "name":name, 
@@ -141,5 +143,15 @@ export class ItemService {
       "end_time": end_time,
       "price": price, 
     });
+  }
+
+  getCourseById(id) {
+    for(let course of this.mycourses) {
+      console.log("course.id = " + course.id);
+      if(course.id === id) {
+        console.log("found the course!!!!!!!");
+        return course;
+      }
+    }
   }
 }

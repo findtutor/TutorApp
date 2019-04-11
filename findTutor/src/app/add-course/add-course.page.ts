@@ -25,7 +25,7 @@ export class AddCoursePage implements OnInit {
       description: new FormControl('', Validators.required),
       start_time: new  FormControl('', Validators.required),
       end_time: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required)
     });
   }
 
