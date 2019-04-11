@@ -8,6 +8,7 @@ import { ItemService } from '../item.service';
   templateUrl: './update-course.page.html',
   styleUrls: ['./update-course.page.scss'],
 })
+
 export class UpdateCoursePage implements OnInit {
   update_course_form: FormGroup;
   private cur_course: any;

@@ -29,7 +29,7 @@ export class ItemService {
     ) {
       // load profiles from firebase
       this.database = db;
-    this.categories = db.collection('categories').valueChanges();
+      this.categories = db.collection('categories').valueChanges();
       let profiles = db.collection('profiles').valueChanges();
       console.log("profiles = " + profiles);
       profiles.subscribe(items => {
@@ -84,8 +84,9 @@ export class ItemService {
       alert("ERROR: " + errorMessage + "/nError Code: " + errorCode);
     });
 
+    let hasCreated = false;
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-      if(firebaseUser) {
+      if(firebaseUser && hasCreated == false) {
           this.db.collection('/users').add({
             "uid": firebaseUser.uid, 
             "email": user.email, 
@@ -103,7 +104,8 @@ export class ItemService {
             "field": "unknown",
             "introduction": "unknown"
           });
-          console.log("cloud saved profile");
+          console.log("cloud saved profile");  
+          hasCreated = true;
       } else {
         console.log("user null");
       }

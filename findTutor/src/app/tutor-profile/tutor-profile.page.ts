@@ -51,6 +51,8 @@ export class TutorProfilePage implements OnInit {
       }, function(error) {
          console.log(error);
       });
+    } else {
+      console.log("No user signed in now!");
     }
   }
 
