@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'add-course', loadChildren: './add-course/add-course.module#AddCoursePageModule' },
   { path: 'course-detail', loadChildren: './course-detail/course-detail.module#CourseDetailPageModule' },
   { path: 'update-course', loadChildren: './update-course/update-course.module#UpdateCoursePageModule' },
+  { path: 'category-detail', loadChildren: './category-detail/category-detail.module#CategoryDetailPageModule' },
 ];
 @NgModule({
   imports: [
