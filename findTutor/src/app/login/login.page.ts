@@ -67,11 +67,11 @@ export class LoginPage implements OnInit {
           let user_type = self.itemService.getusertype(userid);
           console.log("user type is: " + user_type);
 
-          if (usertype=="tutor" && user_type=="tutor" && error_exist == 0){
+          if (usertype === "tutor" && user_type === "tutor" && error_exist == 0){
             console.log('go to the tutor interface');
             console.log(error_exist);
             self.router.navigate(["/tutor"]);
-          } else if (usertype=="student" && user_type=="student" && error_exist == 0){
+          } else if (usertype ==="student" && user_type ==="student" && error_exist == 0){
             console.log('go to the student interface');
             self.router.navigate(["/student"]);
           } else{

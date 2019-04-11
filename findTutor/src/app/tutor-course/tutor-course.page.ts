@@ -56,4 +56,5 @@ export class TutorCoursePage implements OnInit {
   	this.router.navigate(['/tutor-course']);
   }
 
+  
 }

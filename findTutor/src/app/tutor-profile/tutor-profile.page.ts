@@ -42,4 +42,16 @@ export class TutorProfilePage implements OnInit {
     console.log("profile introduction is " + this.profile.introduction);
     console.log("profile iddddd is " + this.profile.id);// undefined
   }
+
+  logout() {
+    let cur_user = firebase.auth().currentUser;
+    if(cur_user != null) {
+      firebase.auth().signOut().then(function() {
+        console.log("logout successfully!");
+      }, function(error) {
+         console.log(error);
+      });
+    }
+  }
+
 }
