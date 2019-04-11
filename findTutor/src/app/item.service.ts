@@ -13,6 +13,7 @@ export class ItemService {
   database: AngularFirestore;
   profiles: Observable<any[]>;
   courses: Observable<any[]>;
+  categories:Observable<any[]>;
   myprofiles = [];
   myusers =[];
   mycourses = []
@@ -28,6 +29,7 @@ export class ItemService {
     ) {
       // load profiles from firebase
       this.database = db;
+    this.categories = db.collection('categories').valueChanges();
       let profiles = db.collection('profiles').valueChanges();
       console.log("profiles = " + profiles);
       profiles.subscribe(items => {
@@ -154,4 +156,25 @@ export class ItemService {
       }
     }
   }
+
+  loadTutorCourse(currentuserid) {
+    console.log("cur user  id is " + currentuserid);// undefined
+    this.courses = this.database.collection('courses',ref => ref.where('ownerid', '==', currentuserid)).valueChanges();
+    return this.courses;
+  }
+
+  deleteCourse(courseid){
+    let newInfo = firebase.database().ref('courses/' + courseid).remove();
+    console.log( 'Course deleted:' + courseid);
+  }
+
+
+  // ********************************************************************
+  // *****************  category related API: *****************************
+  // ********************************************************************
+  getCategories(){
+    console.log('getting categories...' + this.categories);
+    return this.categories;
+  }
 }
+

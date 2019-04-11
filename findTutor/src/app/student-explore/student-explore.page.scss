@@ -1,0 +1,26 @@
+.iconBox {
+  text-align: center;
+  .imgBox {
+    margin: 2px;
+    width: 80px;
+    height: 65px;
+    .iconImg {
+      //margin: 3px;
+      //width: 55px;
+      // height: 55px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+    }
+  }
+  .card-title{
+    text-align: center;
+    color: #0cd1e8;
+  }
+  a {
+    color: #999999;
+  }
+}
+
+.col-25{border: 1px solid #ddd;height: 120px;display:flex;justify-content:center;align-items: center;}
+.col-25 imgBox {height: 64px; width: 64px;}
