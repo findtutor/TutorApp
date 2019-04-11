@@ -8,24 +8,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <!-- <ion-item> -->
-     <ion-item *ngFor="let course of courses">
-        <ion-label text-wrap>
-        <div>
-           <h2>{{ course.name }}</h2>
-            <p>Category: {{ course.category }}
-            <br/>
-              Price/hour: ${{course.price}}
-             </p>
-        </div>
-        </ion-label>
-            <!-- <ion-button (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button> -->
-          <ion-label text-right>
-              <ion-button class="btn" (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button><br />
-              <ion-button class="btn" (click)="updateCourse(course)" fill="outline" slot="end">Update</ion-button><br />
-              <ion-button class="btn" (click)="deleteCourse(course)" fill="outline" slot="end">Delete</ion-button><br />
+    <ion-list>
+      <!-- <ion-item> -->
+       <ion-item *ngFor="let course of courses">
+          <ion-label text-wrap>
+          <div>
+             <h2>{{ course.name }}</h2>
+              <p>Category: {{ course.category }}
+              <br/>
+                Price/hour: ${{course.price}}
+               </p>
+          </div>
           </ion-label>
-      </ion-item>       
-   </ion-list>
+              <!-- <ion-button (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button> -->
+            <ion-label text-right>
+                <ion-button class="btn" (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button><br />
+                <ion-button class="btn" (click)="updateCourse(course)" fill="outline" slot="end">Update</ion-button><br />
+                <ion-button class="btn" (click)="deleteCourse(course)" fill="outline" slot="end">Delete</ion-button><br />
+            </ion-label>
+        </ion-item>       
+     </ion-list>
 </ion-content>

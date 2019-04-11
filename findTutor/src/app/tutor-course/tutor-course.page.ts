@@ -4,7 +4,7 @@ import { ItemService } from '../item.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs'; 
 
 @Component({
   selector: 'app-tutor-course',
@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./tutor-course.page.scss'],
 })
 export class TutorCoursePage implements OnInit {
- // private courses;
   coursesObservable:Observable<any[]>;
   courses:Array<any>=[];
 
@@ -24,9 +23,9 @@ export class TutorCoursePage implements OnInit {
       
     }
     current_user = firebase.auth().currentUser;
-  
-  ngOnInit() {
 
+
+  ngOnInit() {
     this.coursesObservable = this.itemService.loadTutorCourse(this.current_user.uid);
     this.coursesObservable.subscribe(courses => {
       this.courses = courses;
@@ -56,4 +55,5 @@ export class TutorCoursePage implements OnInit {
     this.itemService.deleteCourse(course.id)
   	this.router.navigate(['/tutor-course']);
   }
+
 }
