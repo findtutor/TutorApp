@@ -3,8 +3,6 @@ import * as firebase from 'firebase';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertController} from '@ionic/angular';
 
-import {IonicStorageModule} from '@ionic/Storage';
-import {Storage} from '@ionic/Storage';
 
 import { ItemService } from '../item.service';
 import { NavController } from '@ionic/angular';
@@ -60,7 +58,7 @@ export class StudentExplorePage implements OnInit {
     this.initializeItems();
 
     // set q to the value of the searchbar
-    var q = searchbar.srcElement.value;
+    var q = searchbar;
     console.log('q: ' + q);
 
     // if the value is an empty string don't filter the items
@@ -76,6 +74,7 @@ export class StudentExplorePage implements OnInit {
         return false;
       }
     });
+    //this.searchResultPage(this.categoryList);
 
     console.log(q, this.categoryList.length);
 
@@ -106,7 +105,19 @@ export class StudentExplorePage implements OnInit {
   categoryDetailPage(item)
   {
     console.log('category detail: ' + item);
-    this.router.navigate(["/category-detail", item]);
+    this.router.navigate(['/category-detail', item]);
+  }
+  searchResultPage(key)
+  {
+    console.log('search result detail: ' + item);
+    //this.navCtrl.navigateForward("/search-result", item);
+
+    let item = {key : key};
+    this.router.navigate(["/search-result", item]);
+
+  }
+  openPages(Page, Data){
+    this.navCtrl.navigateForward(Page, Data);
   }
 }
 

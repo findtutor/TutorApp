@@ -13,7 +13,7 @@ export class ItemService {
   database: AngularFirestore;
   profiles: Observable<any[]>;
   courses: Observable<any[]>;
-  categories:Observable<any[]>;
+  categories: Observable<any[]>;
   myprofiles = [];
   myusers =[];
   mycourses = []
@@ -30,6 +30,7 @@ export class ItemService {
       // load profiles from firebase
       this.database = db;
     this.categories = db.collection('categories').valueChanges();
+    this.courses = db.collection('courses').valueChanges();
       let profiles = db.collection('profiles').valueChanges();
       console.log("profiles = " + profiles);
       profiles.subscribe(items => {
@@ -145,6 +146,11 @@ export class ItemService {
       "end_time": end_time,
       "price": price, 
     });
+  }
+
+  getCourses() {
+    console.log('return the entire courses from db...');
+    return this.courses;
   }
 
   getCourseById(id) {
