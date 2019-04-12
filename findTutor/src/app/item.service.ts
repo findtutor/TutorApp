@@ -15,7 +15,6 @@ export class ItemService {
   courses: Observable<any[]>;
   profileInfo:Observable<any[]>;
   categories:Observable<any[]>;
-
   myprofiles = [];
   myusers =[];
   mycourses = []
@@ -88,7 +87,7 @@ export class ItemService {
     });
     let hasCreated=false;
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-    if(firebaseUser && hasCreated == true) {
+      if(firebaseUser && hasCreated == true) {
 
           this.db.collection('/users').add({
             "uid": firebaseUser.uid, 
