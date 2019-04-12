@@ -16,7 +16,6 @@ import { Observable } from 'rxjs';
 export class SearchResultPage implements OnInit {
 
   public searchresultList: Array<any>;
-  public loadedcourseList: Array<any>;
   public coursesRef: firebase.database.Reference;
   public searchkey: any;
   coursesObervable: Observable<any[]>;
@@ -86,6 +85,10 @@ export class SearchResultPage implements OnInit {
 
     console.log(q, this.searchresultList.length);
 
+  }
+  goBack()
+  {
+    this.router.navigate(['/student-explore']);
   }
   courseDetailPage(item){
     console.log('search result detail: ' + item);
