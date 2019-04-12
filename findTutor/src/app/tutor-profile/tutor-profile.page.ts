@@ -24,23 +24,15 @@ export class TutorProfilePage implements OnInit {
 
   ngOnInit() {
     let curuser =firebase.auth().currentUser;
-    console.log("currrrrrr uid = " + curuser.uid);
     this.getUserProfile(curuser);
-    console.log("profilllllle uid = " + this.profile.uid);// undefined
   }
 
   updateTutorProfile(profile){
-    console.log('edit tutor profile button clicked');
-    console.log("currrrrrr idddd = " + this.profile.uid);// undefined
     this.router.navigate(["/edit-tutor-profile", profile]);
   }
 
   getUserProfile(curuser) {
     this.profile = this.itemservice.getProfile(curuser);
-    console.log("profile is " + this.profile);
-    console.log("profile  username is " + this.profile.username);
-    console.log("profile introduction is " + this.profile.introduction);
-    console.log("profile uiddddd is " + this.profile.uid);// undefined
   }
 
   logout() {

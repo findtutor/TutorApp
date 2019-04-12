@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -8,8 +9,12 @@ import { Router } from '@angular/router';
 })
 export class CourseDetailPage implements OnInit {
   img: String;
+  course: any;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private itemService: ItemService,
+    ) { }
 
   ngOnInit() {
   //  setCourseImage(courseid);
@@ -51,9 +56,9 @@ export class CourseDetailPage implements OnInit {
     }
   }
 
-  // TODOS: get course type via course_id
-  // getCourseType(courseid) {
-
-  // }
+  // get course type via course_id
+  getCourseType(courseid) {
+    this.course = this.itemService.getCourseById(courseid);
+  }
 
 }

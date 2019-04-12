@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase';
+import { Events } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,6 @@ import * as firebase from 'firebase';
 export class ItemService {
 
   database: AngularFirestore;
-  profiles: Observable<any[]>;
   courses: Observable<any[]>;
   profileInfo:Observable<any[]>;
   categories:Observable<any[]>;
@@ -20,18 +20,31 @@ export class ItemService {
   mycourses = []
   usertype="student"; //by default
 
-  profiledb = firebase.database().ref('profiles');
+  profiledb = firebase.database().ref('profiles/');
+  profiles: Array<any> =[];
   
   // database: AngularFirestore;
 
   constructor(
     public db: AngularFirestore,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    public events: Events
     ) {
+      // bind object value with id
+      this.profiledb.on('value', resp => {
+        this.profiles = [];
+        this.profiles = snapshotToArray(resp);
+        console.log(this.profiles.length+" items loaded");
+        console.log(this.profiles);
+        
+        this.events.publish('dataloaded',Date.now());
+      });
+
+
       // load profiles from firebase
       this.database = db;
-    this.categories = db.collection('categories').valueChanges();
-    this.courses = db.collection('courses').valueChanges();
+      this.categories = db.collection('categories').valueChanges();
+      this.courses = db.collection('courses').valueChanges();
       let profiles = db.collection('profiles').valueChanges();
       console.log("profiles = " + profiles);
       profiles.subscribe(items => {
@@ -95,9 +108,10 @@ export class ItemService {
             "usertype": user.usertype
           });
           console.log("created a new user...");
-          
-          // create a default profile when user first signup
-          this.db.collection('/profiles').add({
+
+
+          let newProfile = firebase.database().ref('profiles').push();
+          newProfile.set({
             "uid": firebaseUser.uid,
             "email": user.email,
             "image": "https://www.thesprucepets.com/thmb/KEkwV1YeL3obCMo0YSPDXTCxjRA=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/19933184_104417643500613_5541725731421159424_n-5ba0548546e0fb0050edecc0.jpg",
@@ -105,8 +119,19 @@ export class ItemService {
             "contact_info": "unknown",
             "field": "unknown",
             "introduction": "unknown"
-          });
-          console.log("cloud saved profile");  
+          })
+          
+          // create a default profile when user first signup
+          // this.db.collection('/profiles').add({
+          //   "uid": firebaseUser.uid,
+          //   "email": user.email,
+          //   "image": "https://www.thesprucepets.com/thmb/KEkwV1YeL3obCMo0YSPDXTCxjRA=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/19933184_104417643500613_5541725731421159424_n-5ba0548546e0fb0050edecc0.jpg",
+          //   "username": user.email,
+          //   "contact_info": "unknown",
+          //   "field": "unknown",
+          //   "introduction": "unknown"
+          // });
+          // console.log("cloud saved profile");  
       } else {
         hasCreated = true;
         console.log("user null");
@@ -115,27 +140,32 @@ export class ItemService {
   }
 
   // ********************************************************************
-  // *****************  Profile related API: *****************************
+  // *****************  Profile related API: ****************************
   // ********************************************************************
   
   getProfile(currentUser) {
-    console.log("cur user  id is " + currentUser.uid);// undefined
-    for(let profile of this.myprofiles) {
-     // console.log("profile id hahahah = " + profile.id);// undefined!!!!!!
-     // console.log("profile username hahahah = " + profile.username);
-     // console.log("profile.uid = " + profile.uid);
-     // console.log("currentUser.uid = " + currentUser.uid);
-      if(profile.uid == currentUser.uid) {
+    console.log("cur user  uid is " + currentUser.uid);
+    for(let profile of this.profiles) {
+      if(profile.uid === currentUser.uid) {
+        return profile;
+      }
+    }
+  }
+
+  getProfileByUid(uid) {
+    for(let profile of this.profiles) {
+      if(profile.uid === uid) {
         return profile;
       }
     }
   }
 
   updateProfile(newProfile) {
-    console.log("new profile id = " + newProfile.uid);
-   // let newInfo = firebase.database().ref('profiles/' + newProfile.uid).update(newProfile);
-   let newInfo = firebase.database().ref('profiles/' + newProfile.uid).update(newProfile);
+    console.log("new profile id ===== " + newProfile.id);
+    let newInfo = firebase.database().ref('profiles/' + newProfile.id).update(newProfile);
   }
+
+
   // ********************************************************************
   // *****************  Course related API: *****************************
   // ********************************************************************
@@ -186,5 +216,18 @@ export class ItemService {
     console.log('getting categories...' + this.categories);
     return this.categories;
   }
+}
+
+export const snapshotToArray = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.id = childSnapshot.key;
+      // console.log(item);
+      returnArr.push(item);
+  });
+
+  return returnArr;
 }
 
