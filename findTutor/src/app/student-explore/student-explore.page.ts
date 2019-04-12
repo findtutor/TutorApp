@@ -109,7 +109,7 @@ export class StudentExplorePage implements OnInit {
   }
   searchResultPage(key)
   {
-    console.log('search result detail: ' + item);
+    console.log('search result detail: ' + key);
     //this.navCtrl.navigateForward("/search-result", item);
 
     let item = {key : key};
