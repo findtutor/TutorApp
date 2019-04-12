@@ -1,10 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>category-detail</ion-title>
-    <ion-back-button slot="end" (click)="goBack()"></ion-back-button>
+    <ion-back-button slot="start" (click)="goBack()"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <p>Show the courses based on a filter which filter the courses by their category field.</p>
+  <ion-list>
+    <ion-item class="cards" *ngFor="let courseBelowThisCategory of searchresultList" (click)="courseDetailPage(courseBelowThisCategory)">
+      <h5>{{ courseBelowThisCategory.name}}</h5>
+      <p class="cards context">{{courseBelowThisCategory.description}} <br> ${{courseBelowThisCategory.price}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
