@@ -75,7 +75,7 @@ export class ItemService {
       
     }
   }
-
+ 
   createUser(user) {
     console.log("creating user data with this information...\npassword: " + user.password + "\nemail: " + user.email + "\nusertype: " + user.usertype);
 
@@ -85,7 +85,7 @@ export class ItemService {
       var errorMessage = error.message;
       alert("ERROR: " + errorMessage + "/nError Code: " + errorCode);
     });
-
+    let hasCreated=false;
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser && hasCreated == true) {
 
