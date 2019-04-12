@@ -13,6 +13,7 @@ export class ItemService {
   database: AngularFirestore;
   profiles: Observable<any[]>;
   courses: Observable<any[]>;
+  profileInfo:Observable<any[]>;
   categories:Observable<any[]>;
   myprofiles = [];
   myusers =[];
@@ -63,7 +64,7 @@ export class ItemService {
     // console.log(this.myusers.length +" users found");
     // console.log(userid);
     for (var i = this.myusers.length - 1; i >= 0; i--) {
-      console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
+      //console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
       if(this.myusers[i].uid == userid){
         console.log(this.myusers[i].email +" "+this.myusers[i].usertype);
         this.usertype = this.myusers[i].usertype;
@@ -75,7 +76,7 @@ export class ItemService {
   }
 
   createUser(user) {
-    console.error("creating user data with this information...\npassword: " + user.password + "\nemail: " + user.email + "\nusertype: " + user.usertype);
+    console.log("creating user data with this information...\npassword: " + user.password + "\nemail: " + user.email + "\nusertype: " + user.usertype);
 
     this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
     .catch(function(error) {
@@ -86,7 +87,7 @@ export class ItemService {
 
     let hasCreated = false;
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-      if(firebaseUser && hasCreated == false) {
+      if(firebaseUser && hasCreated == true) {
           this.db.collection('/users').add({
             "uid": firebaseUser.uid, 
             "email": user.email, 
@@ -105,8 +106,9 @@ export class ItemService {
             "introduction": "unknown"
           });
           console.log("cloud saved profile");  
-          hasCreated = true;
+          
       } else {
+        hasCreated = true;
         console.log("user null");
       }
     });
@@ -115,13 +117,14 @@ export class ItemService {
   // ********************************************************************
   // *****************  Profile related API: *****************************
   // ********************************************************************
+  
   getProfile(currentUser) {
-    console.log("cur user  id is " + currentUser.id);// undefined
+    console.log("cur user  id is " + currentUser.uid);// undefined
     for(let profile of this.myprofiles) {
-      console.log("profile id hahahah = " + profile.id);// undefined!!!!!!
-      console.log("profile username hahahah = " + profile.username);
-      console.log("profile.uid = " + profile.uid);
-      console.log("currentUser.uid = " + currentUser.uid);
+     // console.log("profile id hahahah = " + profile.id);// undefined!!!!!!
+     // console.log("profile username hahahah = " + profile.username);
+     // console.log("profile.uid = " + profile.uid);
+     // console.log("currentUser.uid = " + currentUser.uid);
       if(profile.uid == currentUser.uid) {
         return profile;
       }
@@ -129,10 +132,10 @@ export class ItemService {
   }
 
   updateProfile(newProfile) {
-    console.log("new profile id = " + newProfile.id);
-    let newInfo = firebase.database().ref('profiles/' + newProfile.id).update(newProfile);
+    console.log("new profile id = " + newProfile.uid);
+   // let newInfo = firebase.database().ref('profiles/' + newProfile.uid).update(newProfile);
+   let newInfo = firebase.database().ref('profiles/' + newProfile.uid).update(newProfile);
   }
-
   // ********************************************************************
   // *****************  Course related API: *****************************
   // ********************************************************************

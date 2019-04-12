@@ -54,6 +54,7 @@ export class StudentProfilePage implements OnInit {
     } else {
       console.log("No user signed in now!");
     }
+    this.router.navigate(['/login']);
   }
 
 

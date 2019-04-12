@@ -51,9 +51,9 @@ export class EditTutorProfilePage implements OnInit {
 
   updateProfile(value) {
     console.log("valueeeee username is " + value.username);
-    console.log("currrrent profile id issss: " + this.cur_profile.id);
+    console.log("currrrent profile id issss: " + this.cur_profile.uid);
     let newProfile = {
-      id: this.cur_profile.id,
+      uid: this.cur_profile.uid,
       image: value.image,
       username: value.username,
       contact_info: value.contact_info,
@@ -61,11 +61,11 @@ export class EditTutorProfilePage implements OnInit {
       introduction: value.introduction
     }
     this.itemService.updateProfile(newProfile);
+    this.goBack();
   }
 
   goBack(){
     this.router.navigate(['/tutor-profile']);
   }
-
 
 }
