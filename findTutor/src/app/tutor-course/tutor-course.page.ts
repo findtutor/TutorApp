@@ -32,8 +32,8 @@ export class TutorCoursePage implements OnInit {
         if(this.courses != undefined) {
         console.log('There are ' + this.courses.length + ' courses.');
         }
-      })
-    }
+    })
+  }
 
   addCourse(){
     console.log('add course button clicked')
