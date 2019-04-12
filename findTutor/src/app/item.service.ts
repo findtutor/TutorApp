@@ -15,6 +15,7 @@ export class ItemService {
   courses: Observable<any[]>;
   profileInfo:Observable<any[]>;
   categories:Observable<any[]>;
+
   myprofiles = [];
   myusers =[];
   mycourses = []
@@ -30,7 +31,8 @@ export class ItemService {
     ) {
       // load profiles from firebase
       this.database = db;
-      this.categories = db.collection('categories').valueChanges();
+    this.categories = db.collection('categories').valueChanges();
+    this.courses = db.collection('courses').valueChanges();
       let profiles = db.collection('profiles').valueChanges();
       console.log("profiles = " + profiles);
       profiles.subscribe(items => {
@@ -74,7 +76,7 @@ export class ItemService {
       
     }
   }
-
+ 
   createUser(user) {
     console.log("creating user data with this information...\npassword: " + user.password + "\nemail: " + user.email + "\nusertype: " + user.usertype);
 
@@ -84,10 +86,10 @@ export class ItemService {
       var errorMessage = error.message;
       alert("ERROR: " + errorMessage + "/nError Code: " + errorCode);
     });
-
-    let hasCreated = false;
+    let hasCreated=false;
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
-      if(firebaseUser && hasCreated == true) {
+    if(firebaseUser && hasCreated == true) {
+
           this.db.collection('/users').add({
             "uid": firebaseUser.uid, 
             "email": user.email, 
@@ -106,7 +108,6 @@ export class ItemService {
             "introduction": "unknown"
           });
           console.log("cloud saved profile");  
-          
       } else {
         hasCreated = true;
         console.log("user null");
@@ -150,6 +151,11 @@ export class ItemService {
       "end_time": end_time,
       "price": price, 
     });
+  }
+
+  getCourses() {
+    console.log('return the entire courses from db...');
+    return this.courses;
   }
 
   getCourseById(id) {
