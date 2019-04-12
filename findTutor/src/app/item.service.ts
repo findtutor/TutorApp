@@ -141,7 +141,10 @@ export class ItemService {
   // ********************************************************************
   createCourse(name, category, description, start_time, end_time, price) {
     let ownerid = firebase.auth().currentUser.uid;
-    this.db.collection('courses').add({
+    let courseId = this.db.collection('courses').ref.doc().id;
+    console.log("pre generated course id: " + courseId);
+    this.db.collection('courses').doc(courseId).set({
+  //  this.db.collection('courses').add({
       "ownerid":ownerid, 
       "name":name, 
       "category":category, 
@@ -149,6 +152,7 @@ export class ItemService {
       "start_time": start_time,
       "end_time": end_time,
       "price": price, 
+      "courseid":courseId,
     });
   }
 
@@ -174,7 +178,9 @@ export class ItemService {
   }
 
   deleteCourse(courseid){
-    let newInfo = firebase.database().ref('courses/' + courseid).remove();
+    //let newInfo = firebase.database().ref('courses/' + courseid).remove();
+   // firebase.database().ref('courses/').child(courseid).remove();
+    firebase.database().ref('courses/').child(courseid).remove();
     console.log( 'Course deleted:' + courseid);
   }
 
