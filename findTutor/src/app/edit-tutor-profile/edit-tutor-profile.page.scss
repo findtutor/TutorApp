@@ -8,7 +8,7 @@
 
  #upperhalf {
     background-color: rgb(107, 174, 198);
-    height: 250px;
+    height: 220px;
     padding-top: 40px;
  }
 
@@ -16,15 +16,16 @@
      color: rgb(107, 174, 198);
  }
 
- .header {
-    color: rgb(107, 174, 198);
+.header {
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 ion-item {
     --border-color: rgb(107, 174, 198);
     --border-radius: 15px;
-  }
- 
+}
+
 .submit-btn {
-    padding-top: 10px;
+    margin-top: 10px;
 }

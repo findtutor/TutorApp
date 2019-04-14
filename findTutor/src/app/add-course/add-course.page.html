@@ -1,13 +1,15 @@
 <ion-header>
-  <ion-toolbar class="header">
+  <ion-toolbar color="tertiary" class="header">
     <ion-title>Add course</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </ion-header>
 
 <ion-content>
+    <div><ion-icon color="tertiary" name="today"></ion-icon></div>
     <form [formGroup]="new_course_form" (submit)="createCourse(new_course_form.value)">
         <ion-item class="input">
           <ion-label class="label" position="floating">Course Name</ion-label>
