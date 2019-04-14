@@ -47,6 +47,7 @@ export class EditStudentProfilePage implements OnInit {
     console.log("valueeeee username is " + value.username);
     console.log("currrrent profile id issss: " + this.cur_profile.id);
     let newProfile = {
+      id: this.cur_profile.id,
       image: value.image,
       username: value.username,
       contact_info: value.contact_info,

@@ -52,6 +52,7 @@ export class EditTutorProfilePage implements OnInit {
   updateProfile(value) {
     console.log("new profile contact_info = " + value.contact_info);
     let newProfile = {
+      id: this.cur_profile.id,
       image: value.image,
       username: value.username,
       contact_info: value.contact_info,
