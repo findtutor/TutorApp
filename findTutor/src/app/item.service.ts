@@ -120,18 +120,6 @@ export class ItemService {
             "field": "unknown",
             "introduction": "unknown"
           })
-          
-          // create a default profile when user first signup
-          // this.db.collection('/profiles').add({
-          //   "uid": firebaseUser.uid,
-          //   "email": user.email,
-          //   "image": "https://www.thesprucepets.com/thmb/KEkwV1YeL3obCMo0YSPDXTCxjRA=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/19933184_104417643500613_5541725731421159424_n-5ba0548546e0fb0050edecc0.jpg",
-          //   "username": user.email,
-          //   "contact_info": "unknown",
-          //   "field": "unknown",
-          //   "introduction": "unknown"
-          // });
-          // console.log("cloud saved profile");  
       } else {
         hasCreated = true;
         console.log("user null");
