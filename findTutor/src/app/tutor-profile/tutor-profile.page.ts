@@ -32,7 +32,6 @@ export class TutorProfilePage implements OnInit {
 
   ngOnInit() {
     let curuser =firebase.auth().currentUser;
-    // this.getUserProfile(curuser);
     this.profile  = this.itemservice.getProfile(curuser);
     if(this.profile  != undefined){
           console.log("profile " + this.profile);

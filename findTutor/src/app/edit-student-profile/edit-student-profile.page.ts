@@ -55,6 +55,7 @@ export class EditStudentProfilePage implements OnInit {
       introduction: "N/A"
     }
     this.itemService.updateProfile(newProfile);
+    this.goBack();
   }
 
   goBack(){
