@@ -1,26 +1,68 @@
-.iconBox {
-  text-align: center;
-  .imgBox {
-    margin: 2px;
-    width: 80px;
-    height: 65px;
-    .iconImg {
-      //margin: 3px;
-      //width: 55px;
-      // height: 55px;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      border-radius: 25px;
-    }
-  }
-  .card-title{
-    text-align: center;
-    color: #0cd1e8;
-  }
+ion-card
+{
+  height: 110px;
+  background-color: rgb(107, 174, 198);
+  border: solid white;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+ion-card-header{
+  width:60%;
+  float: left;
+  text-align: left;
+  font-size: 18px;
+  color: white;
+
+}
+ion-card-content{
+  padding:0px;
+  width:40%;
+  float: right;
+  border: white;
+  //border-style: hidden hidden hidden dashed;
+  border-style: dashed dashed dashed dashed;
+}
+.catImg{
+  width: auto;
+  height: auto;
+  max-width: 98%;
+  max-height: 75%;
+}
   a {
     color: #999999;
   }
-}
 
 .col-25{border: 1px solid #ddd;height: 120px;display:flex;justify-content:center;align-items: center;}
 .col-25 imgBox {height: 64px; width: 64px;}
+.input {
+  width: 95%;
+}
+
+ion-icon {
+  font-size: 110px;
+}
+
+div {
+  padding-top: 25px;
+  text-align: center;
+}
+
+.label {
+  color: rgb(107, 174, 198);
+}
+
+.header {
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+ion-item {
+  padding-left: 10px;
+  --border-color: rgb(107, 174, 198);
+  --border-radius: 15px;
+}
+
+ion-button {
+  margin-top: 10px;
+}

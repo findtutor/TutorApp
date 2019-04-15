@@ -1,12 +1,14 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar  color="tertiary" class="header">
     <ion-title>category-detail</ion-title>
-    <ion-back-button slot="start" (click)="goBack()"></ion-back-button>
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </ion-header>
 
 <ion-content>
-<p>Show the courses based on a filter which filter the courses by their category field.</p>
   <ion-list>
     <ion-item class="cards" *ngFor="let courseBelowThisCategory of searchresultList" (click)="courseDetailPage(courseBelowThisCategory)">
       <h5>{{ courseBelowThisCategory.name}}</h5>
