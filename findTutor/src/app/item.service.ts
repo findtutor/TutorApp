@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Events } from '@ionic/angular';
+import { ValueAccessor } from '@ionic/angular/dist/directives/control-value-accessors/value-accessor';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,8 @@ export class ItemService {
   profiledb = firebase.database().ref('profiles/');
   profiles: Array<any> =[];
   
+  coursedb = firebase.database().ref('courses/');
+  tutor_courses: Array<any> =[];
   // database: AngularFirestore;
 
   constructor(
@@ -44,20 +47,15 @@ export class ItemService {
       // load profiles from firebase
       this.database = db;
       this.categories = db.collection('categories').valueChanges();
-      this.courses = db.collection('courses').valueChanges();
-      let profiles = db.collection('profiles').valueChanges();
-      console.log("profiles = " + profiles);
-      profiles.subscribe(items => {
-        this.myprofiles = items;
-        console.log("myprofiles = " + this.myprofiles); 
-      });
 
       // load courses from firebase
-      let courses = db.collection('courses').valueChanges();
-      console.log("courses = " + courses);
-      courses.subscribe(items => {
-        this.mycourses = items;
-        console.log("mycourses = " + this.mycourses); 
+      this.coursedb.on('value', resp => {
+        this.tutor_courses = [];
+        this.tutor_courses = snapshotToArray_TutorCouse(resp);
+        console.log(this.tutor_courses.length+" courses loaded");
+        console.log(this.tutor_courses);
+  
+        this.events.publish('dataloaded',Date.now());
       });
       
       // load users from firebase
@@ -102,7 +100,7 @@ export class ItemService {
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser && hasCreated == true) {
 
-          this.db.collection('/users').add({
+          this.db.collection('/users').doc(firebaseUser.uid).set({
             "uid": firebaseUser.uid, 
             "email": user.email, 
             "usertype": user.usertype
@@ -159,10 +157,8 @@ export class ItemService {
   // ********************************************************************
   createCourse(name, category, description, start_time, end_time, price) {
     let ownerid = firebase.auth().currentUser.uid;
-    let courseId = this.db.collection('courses').ref.doc().id;
-    console.log("pre generated course id: " + courseId);
-    this.db.collection('courses').doc(courseId).set({
-  //  this.db.collection('courses').add({
+    let newCourse = firebase.database().ref('courses').push();
+    newCourse.set({
       "ownerid":ownerid, 
       "name":name, 
       "category":category, 
@@ -170,13 +166,11 @@ export class ItemService {
       "start_time": start_time,
       "end_time": end_time,
       "price": price, 
-      "courseid":courseId,
-    });
+    })
   }
 
-  getCourses() {
-    console.log('return the entire courses from db...');
-    return this.courses;
+  getTutorCourses(){
+    return this.tutor_courses;
   }
 
   getCourseById(id) {
@@ -187,7 +181,7 @@ export class ItemService {
         return course;
       }
     }
-  }
+  } 
 
   loadTutorCourse(currentuserid) {
     console.log("cur user  id is " + currentuserid);// undefined
@@ -225,3 +219,18 @@ export const snapshotToArray = snapshot => {
   return returnArr;
 }
 
+export const snapshotToArray_TutorCouse = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.id = childSnapshot.key;
+     // console.log("course own id" + item.ownerid);
+     // console.log("current user: " + firebase.auth().currentUser.uid);
+      if (item.ownerid == firebase.auth().currentUser.uid){
+          returnArr.push(item);
+      }
+  });
+
+  return returnArr;
+}
