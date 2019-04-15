@@ -1,23 +1,22 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="tertiary" class="header">
+    <ion-icon class="back" name="arrow-round-back" (click)="goBack()"></ion-icon>
     <ion-title>Course Details</ion-title>
-    <ion-buttons slot="end">
-        <ion-button (click)="editCourse()">Edit course</ion-button>
-    </ion-buttons>
   </ion-toolbar>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </ion-header>
 
 <ion-content>
     <ion-card>
         <ion-img [src]="img"></ion-img>
         <ion-card-header>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-          <ion-card-title>Card Title</ion-card-title>
+          <ion-card-subtitle><ion-icon name="book"></ion-icon> {{course.category}}</ion-card-subtitle>
+          <ion-card-title class="content"> {{course.name}}</ion-card-title>
         </ion-card-header>
-      
-        <ion-card-content>
-          Keep close to Nature's heart... and break clear away, once in awhile,
-          and climb a mountain or spend a week in the woods. Wash your spirit clean.
-        </ion-card-content>
+        <ion-card-content class="content"><strong>Description:</strong> {{course.description}}</ion-card-content>
+        <ion-card-content class="content"><strong>Start Time:</strong> {{course.start_time}}</ion-card-content>
+        <ion-card-content class="content"><strong>End Time:</strong> {{course.end_time}}</ion-card-content>
+        <ion-card-content><strong>Price:</strong> {{course.price}} <strong>USD</strong></ion-card-content>
+        <ion-button color="secondary" shape="round" expand="block" (click)="deleteCourse(course.id)">Delete</ion-button>
       </ion-card>
 </ion-content>
