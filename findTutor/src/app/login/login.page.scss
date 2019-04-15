@@ -27,13 +27,18 @@ ion-toolbar{
 
 ion-input {
     --ion-background-color: transparent;
-    // border-radius: 15px;
 }
 
 ion-item{
     --ion-background-color:#fff;
+    --border-radius: 18px;
     margin-bottom: 10px;
- }
+}
+
+.header {
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
 
 .input {
     background-color: transparent;

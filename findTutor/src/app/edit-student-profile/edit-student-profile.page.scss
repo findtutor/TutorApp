@@ -20,5 +20,14 @@
     color: rgb(107, 174, 198);
  }
 
+ ion-item {
+   --border-color: rgb(107, 174, 198);
+   --border-radius: 15px;
+ }
+
+ .submit-btn {
+    margin-top: 10px;
+ }
+
 
 

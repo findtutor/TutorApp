@@ -35,7 +35,7 @@ export class EditStudentProfilePage implements OnInit {
         console.log("param = " + param);
         this.cur_profile = param;
         console.log("current profile is " + this.cur_profile);
-        console.log("current profile id is = " + this.cur_profile.uid);
+        console.log("current profile id is = " + this.cur_profile.id);
         this.student_profile_form.patchValue({image:this.cur_profile.image});
         this.student_profile_form.patchValue({username:this.cur_profile.username});
         this.student_profile_form.patchValue({contact_info: this.cur_profile.contact_info});

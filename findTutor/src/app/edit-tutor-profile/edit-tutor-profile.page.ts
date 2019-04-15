@@ -38,7 +38,7 @@ export class EditTutorProfilePage implements OnInit {
         console.log("param = " + param);
         this.cur_profile = param;
         console.log("current profile is " + this.cur_profile);
-        console.log("current profile id is = " + this.cur_profile.uid);
+        console.log("current profile id is = " + this.cur_profile.id);
         this.tutor_profile_form.patchValue({image:this.cur_profile.image});
         this.tutor_profile_form.patchValue({username:this.cur_profile.username});
         this.tutor_profile_form.patchValue({contact_info: this.cur_profile.contact_info});
@@ -50,19 +50,25 @@ export class EditTutorProfilePage implements OnInit {
   }
 
   updateProfile(value) {
-    console.log("valueeeee username is " + value.username);
-    console.log("currrrent profile id issss: " + this.cur_profile.uid);
+    console.log("new profile contact_info = " + value.contact_info);
     let newProfile = {
-      uid: this.cur_profile.uid,
+      id: this.cur_profile.id,
       image: value.image,
       username: value.username,
       contact_info: value.contact_info,
-      field: value.contact_info,
+      field: value.field,
       introduction: value.introduction
     }
     this.itemService.updateProfile(newProfile);
     this.goBack();
   }
+
+  // updateProfile(value) {
+  //   let target_profile = this.itemService.getProfileByUid(this.cur_profile.uid);
+  //   console.log("target_profile = " + target_profile);
+  //   console.log("target profile uid" + target_profile.uid);
+  // }
+
 
   goBack(){
     this.router.navigate(['/tutor-profile']);
