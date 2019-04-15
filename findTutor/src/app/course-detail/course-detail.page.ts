@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 
 @Component({
@@ -13,12 +13,19 @@ export class CourseDetailPage implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private itemService: ItemService,
     ) { }
 
   ngOnInit() {
-  //  setCourseImage(courseid);
-   this.img = "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg";
+    this.route.params.subscribe(
+      param => {
+        this.course = param;
+        console.log(this.course);
+      }
+    )
+
+   this.setCourseImage(this.course.category);
   }
 
   editCourse(){
@@ -27,9 +34,7 @@ export class CourseDetailPage implements OnInit {
   }
 
   // TODOS: setCourseImage function to be finished
-  setCourseImage(courseid) {
-    // var courseType = getCourseType(courseid);
-    var courseType = "computer_science";
+  setCourseImage(courseType) {
     switch (courseType) {
       case "computer_science": {
         this.img = "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg";
