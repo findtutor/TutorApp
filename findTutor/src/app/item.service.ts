@@ -196,6 +196,9 @@ export class ItemService {
     console.log( 'Course deleted:' + courseid);
   }
 
+  getCourses() {
+    return this.courses;
+  }
 
   // ********************************************************************
   // *****************  category related API: *****************************
