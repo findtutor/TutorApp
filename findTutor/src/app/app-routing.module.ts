@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'update-course', loadChildren: './update-course/update-course.module#UpdateCoursePageModule' },
   { path: 'category-detail', loadChildren: './category-detail/category-detail.module#CategoryDetailPageModule' },
   { path: 'search-result', loadChildren: './search-result/search-result.module#SearchResultPageModule' },
+  { path: 'student-course-detail', loadChildren: './student-course-detail/student-course-detail.module#StudentCourseDetailPageModule' },
 ];
 @NgModule({
   imports: [
