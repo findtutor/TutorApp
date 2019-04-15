@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
 import { ItemService } from '../item.service';
 import {NavController} from '@ionic/angular';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-category-detail',
@@ -11,6 +12,9 @@ import {Observable} from 'rxjs';
   styleUrls: ['./category-detail.page.scss'],
 })
 export class CategoryDetailPage implements OnInit {
+  tutor_courses=[
+  ];
+
   public searchresultList: Array<any>;
   public coursesRef: firebase.database.Reference;
   public searchkey: any;
@@ -20,7 +24,8 @@ export class CategoryDetailPage implements OnInit {
   constructor( private route: ActivatedRoute,
                private router: Router,
                public itemService: ItemService,
-               public navCtrl: NavController) {
+               public navCtrl: NavController,
+               public events: Events) {
     console.log('category detail page constructed');
 
     //console.log( "usertype:" + this.itemService.usertype);
@@ -32,6 +37,14 @@ export class CategoryDetailPage implements OnInit {
     }
 
     this.coursesRef = firebase.database().ref('/courses');
+
+    var self = this;
+    events.subscribe('dataloaded', (time) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      console.log('data load time:', time);
+      self.tutor_courses = this.itemService.getCategoryCourses();
+      console.log("courses loaded: " + self.tutor_courses.length);
+    });
   }
 
   ngOnInit() {
@@ -41,7 +54,10 @@ export class CategoryDetailPage implements OnInit {
           console.log('Selected item detail: ' + this.searchkey);
         }
     )
-    this.coursesObervable = this.itemService.getCourses();
+    this.tutor_courses  = this.itemService.getCategoryCourses();
+    console.log('tutor_courses: ' + this.tutor_courses.length );
+    this.coursesObervable = of(this.tutor_courses);
+    //this.coursesObervable = this.itemService.getCourses();
     console.log('imported all courses');
     this.coursesObervable.subscribe(courses => {
       this.courses = courses;
