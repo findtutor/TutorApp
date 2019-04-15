@@ -10,7 +10,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item class="cards" *ngFor="let courseBelowThisCategory of searchresultList" (click)="courseDetailPage(courseBelowThisCategory)">
+    <ion-item class="cards" *ngFor="let courseBelowThisCategory of category_courselist" (click)="courseDetailPage(courseBelowThisCategory)">
       <h5>{{ courseBelowThisCategory.name}}</h5>
       <p class="cards context">{{courseBelowThisCategory.description}} <br> ${{courseBelowThisCategory.price}}</p>
     </ion-item>

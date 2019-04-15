@@ -26,6 +26,7 @@ export class ItemService {
   
   coursedb = firebase.database().ref('courses/');
   tutor_courses: Array<any> =[];
+  category_courses: Array<any> =[];
   // database: AngularFirestore;
 
   constructor(
@@ -58,6 +59,16 @@ export class ItemService {
         this.events.publish('dataloaded',Date.now());
       });
       
+      //load courses by category
+      this.coursedb.on('value', resp => {
+        this.category_courses = [];
+        this.category_courses = snapshotToArray_CategoryCouse(resp);
+        console.log(this.category_courses.length+" courses loaded");
+        console.log(this.category_courses);
+  
+        this.events.publish('dataloaded',Date.now());
+      });
+
       // load users from firebase
       let users = db.collection('users').valueChanges();
       console.log(users);
@@ -182,6 +193,10 @@ export class ItemService {
     }
   } 
 
+  getCategoryCourses(){
+    return this.category_courses;
+  }
+
   // loadTutorCourse(currentuserid) {
   //   console.log("cur user  id is " + currentuserid);// undefined
   //   this.courses = this.database.collection('courses',ref => ref.where('ownerid', '==', currentuserid)).valueChanges();
@@ -232,6 +247,26 @@ export const snapshotToArray_TutorCouse = snapshot => {
       if (item.ownerid == firebase.auth().currentUser.uid){
           returnArr.push(item);
       }
+  });
+
+  return returnArr;
+}
+
+export const snapshotToArray_CategoryCouse = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.id = childSnapshot.key;
+     // console.log("course own id" + item.ownerid);
+     // console.log("current user: " + firebase.auth().currentUser.uid);
+      // if (item.ownerid == firebase.auth().currentUser.uid){
+      //     returnArr.push(item);
+      // }
+      if (item.category == "physics"){
+          returnArr.push(item);
+      }
+      //returnArr.push(item);
   });
 
   return returnArr;
