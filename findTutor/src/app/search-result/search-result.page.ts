@@ -92,6 +92,6 @@ export class SearchResultPage implements OnInit {
   }
   courseDetailPage(item){
     console.log('search result detail: ' + item);
-    this.router.navigate(['/course-detail', item]);
+    this.router.navigate(['/student-course-detail', item]);
   }
 }
