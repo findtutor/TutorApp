@@ -9,6 +9,7 @@ import { NavController } from '@ionic/angular';
 
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-student-explore',
   templateUrl: './student-explore.page.html',
