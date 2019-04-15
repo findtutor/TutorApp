@@ -33,7 +33,7 @@ export class ItemService {
     public afAuth: AngularFireAuth,
     public events: Events
     ) {
-      // bind object value with id
+      // bind profile value with id
       this.profiledb.on('value', resp => {
         this.profiles = [];
         this.profiles = snapshotToArray(resp);
@@ -48,7 +48,7 @@ export class ItemService {
       this.database = db;
       this.categories = db.collection('categories').valueChanges();
 
-      // load courses from firebase
+      // bind course value with id
       this.coursedb.on('value', resp => {
         this.tutor_courses = [];
         this.tutor_courses = snapshotToArray_TutorCouse(resp);
@@ -147,7 +147,6 @@ export class ItemService {
   }
 
   updateProfile(newProfile) {
-    console.log("new profile id ===== " + newProfile.id);
     let newInfo = firebase.database().ref('profiles/' + newProfile.id).update(newProfile);
   }
 

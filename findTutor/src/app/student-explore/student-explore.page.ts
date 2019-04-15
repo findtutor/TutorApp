@@ -87,8 +87,9 @@ export class StudentExplorePage implements OnInit {
       if(this.categories != undefined) {
         console.log('There are ' + this.categories.length + ' categories in explore page.');
         console.log('There are ' + this.categories.length + ' to be iterated');
-        this.rowList=[];
-        this.rowList=this.getRowListByGridList(3);
+        // this.categoryList = this.categories;
+        this.rowList = [];
+        this.rowList = this.getRowListByGridList(1);
       }
     })
 

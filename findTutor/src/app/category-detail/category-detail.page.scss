@@ -8,3 +8,34 @@
   }
 
 }
+.input {
+  width: 95%;
+}
+
+ion-icon {
+  font-size: 110px;
+}
+
+div {
+  padding-top: 25px;
+  text-align: center;
+}
+
+.label {
+  color: rgb(107, 174, 198);
+}
+
+.header {
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+ion-item {
+  padding-left: 10px;
+  --border-color: rgb(107, 174, 198);
+  --border-radius: 15px;
+}
+
+ion-button {
+  margin-top: 10px;
+}

@@ -1,7 +1,21 @@
 ion-card-content {
     padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 .content {
     padding-bottom: 0px;
+}
+
+ion-button {
+    margin-bottom: 10px;
+}
+
+.header {
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.back {
+    font-size: 40px;
 }
