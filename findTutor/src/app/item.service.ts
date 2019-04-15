@@ -183,11 +183,11 @@ export class ItemService {
     }
   } 
 
-  loadTutorCourse(currentuserid) {
-    console.log("cur user  id is " + currentuserid);// undefined
-    this.courses = this.database.collection('courses',ref => ref.where('ownerid', '==', currentuserid)).valueChanges();
-    return this.courses;
-  }
+  // loadTutorCourse(currentuserid) {
+  //   console.log("cur user  id is " + currentuserid);// undefined
+  //   this.courses = this.database.collection('courses',ref => ref.where('ownerid', '==', currentuserid)).valueChanges();
+  //   return this.courses;
+  // }
 
   deleteCourse(courseid){
     //let newInfo = firebase.database().ref('courses/' + courseid).remove();
