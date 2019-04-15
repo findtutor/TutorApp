@@ -14,7 +14,7 @@ export class CategoryDetailPage implements OnInit {
   public searchresultList: Array<any>;
   public coursesRef: firebase.database.Reference;
   public searchkey: any;
-  coursesObervable: Observable<any[]>;
+  coursesObervable: any;
   courses: Array<any> = [];
   isStudent = false;
   constructor( private route: ActivatedRoute,
