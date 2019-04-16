@@ -37,4 +37,14 @@ export class TutorOrdersPage implements OnInit {
     }
   }
 
+  updateOrderAccept(course){
+    course.status = "accept";
+    let newInfo = firebase.database().ref('orders/' + course.order_id).update(course);
+  }
+
+  updateOrderDeny(course){
+    course.status = "deny";
+    let newInfo = firebase.database().ref('orders/' + course.order_id).update(course);
+  }
+
 }
