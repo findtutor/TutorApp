@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Events } from '@ionic/angular';
-import { ValueAccessor } from '@ionic/angular/dist/directives/control-value-accessors/value-accessor';
 
 @Injectable({
   providedIn: 'root'
@@ -271,7 +270,7 @@ export class ItemService {
   }
 
 }
-
+// ********************************************************************
 export const snapshotToArray = snapshot => {
   let returnArr = [];
 
