@@ -68,8 +68,7 @@ export class StudentCourseDetailPage implements OnInit {
   }
 
   goBack(){
-    this.router.navigate(['/category-detail']);
+    this.router.navigate(['student/student-explore']);
   }
-  
 
 }

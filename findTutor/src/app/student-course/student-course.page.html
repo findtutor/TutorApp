@@ -6,7 +6,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <p>TODO: current saved courses/liked tutors. For the finished course, allow the students to rate the tutor</p>
-  </ion-item>
+    <ion-list>
+        <ion-item *ngFor="let course of student_courses">
+           <ion-label text-wrap>
+           <div>
+              <h2><strong>{{ course.course_name }}</strong></h2>
+               <p><strong>Price:</strong> ${{course.total_price}}</p>
+               <p><strong>Status:</strong> {{course.status}}</p>
+           </div>
+           </ion-label>
+               <!-- <ion-button (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button> -->
+             <ion-label text-right>
+                 <ion-button class="btn" (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button><br />
+                 <!-- <ion-button class="btn" (click)="updateCourse(course)" fill="outline" slot="end">Update</ion-button><br /> -->
+             </ion-label>
+         </ion-item>       
+      </ion-list>
 </ion-content>
