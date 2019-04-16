@@ -28,6 +28,9 @@ export class ItemService {
   category_courses: Array<any> =[];
   // database: AngularFirestore;
 
+  ordersdb = firebase.database().ref('orders/');
+  student_courses: Array<any> =[];
+
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
@@ -57,6 +60,16 @@ export class ItemService {
   
         this.events.publish('dataloaded',Date.now());
       });
+
+      //load student courses (orders)
+      this.ordersdb.on('value', resp => {
+        this.student_courses = [];
+        this.student_courses = snapshotToArray_StudentCouse(resp);
+        console.log(this.student_courses.length+" courses loaded");
+        console.log(this.student_courses);
+  
+        this.events.publish('dataloaded',Date.now());
+      });
       
       //load courses by category
       this.coursedb.on('value', resp => {
@@ -76,6 +89,8 @@ export class ItemService {
         // this.mycartitems = snapshotToArray(items);
         console.log(this.myusers.length);
       });
+
+
      }
 
 
@@ -182,6 +197,10 @@ export class ItemService {
     return this.tutor_courses;
   }
 
+  getStudentCourses(){
+    return this.student_courses;
+  }
+
   getCourseById(id) {
     for(let course of this.mycourses) {
       console.log("course.id = " + course.id);
@@ -219,7 +238,7 @@ export class ItemService {
   getEnrolled(course, quantity){
     // Find total price
     let total_price = quantity * course.price;
-    let status = false;
+    let status = "pending";
     let curuser_id = firebase.auth().currentUser.uid;
     let newOrder = firebase.database().ref('orders').push();
     newOrder.set({
@@ -228,7 +247,10 @@ export class ItemService {
       "course_id":course.id, 
       "total_price":total_price, 
       "unit_number":quantity,
-      "status":status
+      "status":status,
+      "course_name":course.name,
+      "start_time":course.start_time,
+      "end_time":course.end_time,
     });
   }
 
@@ -275,6 +297,22 @@ export const snapshotToArray_CategoryCouse = snapshot => {
       //     returnArr.push(item);
       // }
       returnArr.push(item);
+  });
+
+  return returnArr;
+}
+
+export const snapshotToArray_StudentCouse = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.id = childSnapshot.key;
+     // console.log("course own id" + item.ownerid);
+     // console.log("current user: " + firebase.auth().currentUser.uid);
+      if (item.student_id == firebase.auth().currentUser.uid){
+          returnArr.push(item);
+      }
   });
 
   return returnArr;
