@@ -3,19 +3,19 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 
 @Component({
-  selector: 'app-course-detail',
-  templateUrl: './course-detail.page.html',
-  styleUrls: ['./course-detail.page.scss'],
+  selector: 'app-tutor-course-order-detail',
+  templateUrl: './tutor-course-order-detail.page.html',
+  styleUrls: ['./tutor-course-order-detail.page.scss'],
 })
-export class CourseDetailPage implements OnInit {
+export class TutorCourseOrderDetailPage implements OnInit {
   img: String;
   course: any;
 
   constructor(
-    private router: Router,
+    public router:Router,
     private route: ActivatedRoute,
     private itemService: ItemService,
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -24,16 +24,10 @@ export class CourseDetailPage implements OnInit {
         console.log(this.course);
       }
     )
-   console.log("course category is " + this.course.category);
-   this.setCourseImage(this.course.category);
+    console.log("course category is " + this.course.category);
+    this.setCourseImage(this.course.category);
   }
 
-  editCourse(){
-    console.log('update course button clicked')
-    this.router.navigate(["/update-course"]);
-  }
-
-  // TODOS: setCourseImage function to be finished
 
   setCourseImage(courseType) {
     switch (courseType) {
@@ -65,14 +59,8 @@ export class CourseDetailPage implements OnInit {
     }
   }
 
-  deleteCourse(id){
-    this.itemService.deleteCourse(id);
-    console.log("Couse has been deleted!");
-  }
-
   goBack(){
-    this.router.navigate(['/tutor-course']);
+    this.router.navigate(['/tutor/tutor-orders']);
   }
-  
 
 }

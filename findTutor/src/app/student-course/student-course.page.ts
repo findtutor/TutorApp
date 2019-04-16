@@ -37,4 +37,8 @@ export class StudentCoursePage implements OnInit {
     }
   }
 
+  studentCourseOrderDetail(course){
+    this.router.navigate(["/student-course-order-detail", course]);
+  }
+
 }

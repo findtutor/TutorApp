@@ -31,7 +31,7 @@ export class ItemService {
   ordersdb = firebase.database().ref('orders/');
   student_courses: Array<any> =[];
   tutor_orders: Array<any> =[];
-
+  
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
@@ -247,6 +247,7 @@ export class ItemService {
     return this.categories;
   }
 
+
   // ********************************************************************
   // ********************* order related API: ***************************
   // ********************************************************************
@@ -267,6 +268,8 @@ export class ItemService {
       "start_time":course.start_time,
       "end_time":course.end_time,
       "order_id":newOrder.key,
+      "category":course.category,
+      "description":course.description,
     });
   }
 

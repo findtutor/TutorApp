@@ -47,4 +47,8 @@ export class TutorOrdersPage implements OnInit {
     let newInfo = firebase.database().ref('orders/' + course.order_id).update(course);
   }
 
+  courseDetailPage(course){
+    this.router.navigate(["/tutor-course-order-detail", course]);
+  }
+
 }
