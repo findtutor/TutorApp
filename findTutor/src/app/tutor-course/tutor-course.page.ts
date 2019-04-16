@@ -54,25 +54,9 @@ export class TutorCoursePage implements OnInit {
   	this.router.navigate(["/course-detail", course]);
   }
 
-  // updateCourse(course){
-  //   console.log('Update course: ' + course.name);
-  // 	this.router.navigate(["/update-course", course]);
-  // }
-
-  // deleteCourse(course){
-  //   console.log('Delete course: ' + course.name);
-  //   this.itemService.deleteCourse(course.courseid);
-  // 	this.router.navigate(['/tutor-course']);
-  // }
-
   deleteCourse(course){
     let newInfo = firebase.database().ref('courses/'+course.id).remove();
     console.log("Course deleted:"+course.id)
-}
-//   deleteCourse(id){
-//     let newInfo = firebase.database().ref('courses/'+id).remove();
-//     console.log("Course deleted:"+id)
-// }
-
+  }
   
 }
