@@ -266,6 +266,7 @@ export class ItemService {
       "course_name":course.name,
       "start_time":course.start_time,
       "end_time":course.end_time,
+      "order_id":newOrder.key,
     });
   }
 
