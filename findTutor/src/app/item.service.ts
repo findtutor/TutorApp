@@ -176,7 +176,7 @@ export class ItemService {
       "start_time": start_time,
       "end_time": end_time,
       "price": price, 
-    })
+    });
   }
 
   getTutorCourses(){
@@ -197,15 +197,7 @@ export class ItemService {
     return this.category_courses;
   }
 
-  // loadTutorCourse(currentuserid) {
-  //   console.log("cur user  id is " + currentuserid);// undefined
-  //   this.courses = this.database.collection('courses',ref => ref.where('ownerid', '==', currentuserid)).valueChanges();
-  //   return this.courses;
-  // }
-
   deleteCourse(courseid){
-    //let newInfo = firebase.database().ref('courses/' + courseid).remove();
-   // firebase.database().ref('courses/').child(courseid).remove();
     firebase.database().ref('courses/').child(courseid).remove();
     console.log( 'Course deleted:' + courseid);
   }
@@ -215,12 +207,32 @@ export class ItemService {
   }
 
   // ********************************************************************
-  // *****************  category related API: *****************************
+  // ****************** category related API: ***************************
   // ********************************************************************
   getCategories(){
     console.log('getting categories...' + this.categories);
     return this.categories;
   }
+
+  // ********************************************************************
+  // ********************* order related API: ***************************
+  // ********************************************************************
+  getEnrolled(course, quantity){
+    // Find total price
+    let total_price = quantity * course.price;
+    let status = false;
+    let curuser_id = firebase.auth().currentUser.uid;
+    let newOrder = firebase.database().ref('orders').push();
+    newOrder.set({
+      "student_id":curuser_id, 
+      "tutor_id":course.ownerid, 
+      "course_id":course.id, 
+      "total_price":total_price, 
+      "unit_number":quantity,
+      "status":status
+    });
+  }
+
 }
 
 export const snapshotToArray = snapshot => {
