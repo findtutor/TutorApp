@@ -6,8 +6,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <p>TODO: show a list of recent orders. For the pending orders, allow the tutor to accept/decline the orders. For the finished orders, allow the tutor to rate his/her students</p>
-  </ion-item>
+    <ion-list>
+        <ion-item *ngFor="let course of tutor_orders">
+           <ion-label text-wrap>
+           <div>
+              <h2><strong>{{ course.course_name }}</strong></h2>
+               <p><strong>Price:</strong> ${{course.total_price}}</p>
+               <p><strong>Status:</strong> {{course.status}}</p>
+               <p><strong>Accept or Deny</strong>
+               <ion-select placeholder="Status">
+                  <ion-select-option value="accept">Accept</ion-select-option>
+                  <ion-select-option value="deny">Deny</ion-select-option>
+               </ion-select>
+              </p>
+           </div>
+           </ion-label>
+               <!-- <ion-button (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button> -->
+
+             <ion-label text-right>
+                <ion-button class="btn" (click)="courseDetailPage(course)" fill="outline" slot="end">Info</ion-button><br />
+                <!-- <ion-button class="btn" (click)="updateCourse(course)" fill="outline" slot="end">Update</ion-button><br /> -->
+            </ion-label>
+         </ion-item>       
+      </ion-list>
 
 </ion-content>
