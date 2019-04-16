@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-student-profile',
@@ -19,12 +20,23 @@ export class StudentProfilePage implements OnInit {
     private router: Router,
     public itemservice : ItemService,
     public db: AngularFirestore,
-    public afAuth: AngularFireAuth
-  ) { }
+    public afAuth: AngularFireAuth,
+    public events: Events
+  ) { 
+    let curuser = firebase.auth().currentUser;
+    var self = this;
+    events.subscribe('dataloaded', (time) => {
+    self.profile= this.itemservice.getProfile(curuser);
+    console.log("profile loaded: " + self.profile.name);
+    });
+  }
 
   ngOnInit() {
     let curuser =firebase.auth().currentUser;
-    this.getUserProfile(curuser);
+    this.profile  = this.itemservice.getProfile(curuser);
+    if(this.profile  != undefined){
+          console.log("profile " + this.profile);
+    }
   }
 
   updateStudentProfile(profile){
