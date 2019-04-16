@@ -8,7 +8,7 @@ ion-card
   padding-bottom: 0px;
 }
 ion-card-header{
-  width:60%;
+  width:40%;
   float: left;
   text-align: left;
   font-size: 18px;
@@ -17,11 +17,9 @@ ion-card-header{
 }
 ion-card-content{
   padding:0px;
-  width:40%;
+  width:60%;
   float: right;
   border: white;
-  //border-style: hidden hidden hidden dashed;
-  border-style: dashed dashed dashed dashed;
 }
 .catImg{
   width: auto;
