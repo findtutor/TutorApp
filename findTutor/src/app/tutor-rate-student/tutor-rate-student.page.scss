@@ -1,0 +1,40 @@
+.header {
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+p {
+    font-family: 'Ubuntu', sans-serif;
+    text-align: center;
+}
+
+ion-avatar {
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    border: 3px solid  rgb(107, 174, 198);
+}
+
+div {
+    padding-top: 40px;
+}
+
+ion-button {
+    margin-top: 15px;
+}
+
+#star {
+    font-size: 30px;
+    color: rgb(244, 212, 66);
+    vertical-align: middle;
+}
+
+#text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+ion-range {
+    padding-top: 0px;
+}

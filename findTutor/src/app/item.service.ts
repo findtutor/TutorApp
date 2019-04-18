@@ -22,11 +22,13 @@ export class ItemService {
 
   profiledb = firebase.database().ref('profiles/');
   profiles: Array<any> =[];
+
+  student_ratingdb = firebase.database().ref('studentratings/');
+  student_ratings: Array<any> =[];
   
   coursedb = firebase.database().ref('courses/');
   tutor_courses: Array<any> =[];
   category_courses: Array<any> =[];
-  // database: AngularFirestore;
 
   ordersdb = firebase.database().ref('orders/');
   student_courses: Array<any> =[];
@@ -43,6 +45,16 @@ export class ItemService {
         this.profiles = snapshotToArray(resp);
         console.log(this.profiles.length+" items loaded");
         console.log(this.profiles);
+        
+        this.events.publish('dataloaded',Date.now());
+      });
+
+      // bind student rating value with id
+      this.student_ratingdb.on('value', resp => {
+        this.student_ratings = [];
+        this.student_ratings = snapshotToArray(resp);
+        console.log(this.student_ratings.length+" items loaded");
+        console.log(this.student_ratings);
         
         this.events.publish('dataloaded',Date.now());
       });
@@ -119,7 +131,6 @@ export class ItemService {
         return this.myusers[i].usertype;
 
       }
-      
     }
   }
  
@@ -238,6 +249,22 @@ export class ItemService {
   getCourses() {
     return this.courses;
   }
+
+  // ********************************************************************
+  // ******************** rating related API: ***************************
+  // ********************************************************************
+  createRating(order_info, rating) {
+    let ownerid = firebase.auth().currentUser.uid;
+    let newCourse = firebase.database().ref('studentratings').push();
+    newCourse.set({
+      "tutor_id":order_info.tutor_id, 
+      "student_id":order_info.student_id, 
+      "order_id":order_info.order_id,
+      "rating": rating
+    });
+    console.log("create rating successfully!");
+  }
+
 
   // ********************************************************************
   // ****************** category related API: ***************************

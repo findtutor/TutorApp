@@ -15,14 +15,21 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { ItemService } from './item.service';
+
 // import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, AngularFireModule.initializeApp(environment.firebase), 
-    AngularFirestoreModule, AngularFireAuthModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule, 
+    AngularFireModule.initializeApp(environment.firebase), 
+    AngularFirestoreModule, 
+    AngularFireAuthModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+  ],
   providers: [
     AngularFirestore,
     StatusBar,

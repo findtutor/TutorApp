@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'student-course-detail', loadChildren: './student-course-detail/student-course-detail.module#StudentCourseDetailPageModule' },
   { path: 'student-course-order-detail', loadChildren: './student-course-order-detail/student-course-order-detail.module#StudentCourseOrderDetailPageModule' },
   { path: 'tutor-course-order-detail', loadChildren: './tutor-course-order-detail/tutor-course-order-detail.module#TutorCourseOrderDetailPageModule' },
+  { path: 'tutor-rate-student', loadChildren: './tutor-rate-student/tutor-rate-student.module#TutorRateStudentPageModule' },
 ];
 @NgModule({
   imports: [

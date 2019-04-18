@@ -10,11 +10,12 @@ import { ItemService } from '../item.service';
 export class TutorCourseOrderDetailPage implements OnInit {
   img: String;
   course: any;
+  quantity: number;
 
   constructor(
     public router:Router,
     private route: ActivatedRoute,
-    private itemService: ItemService,
+    private itemService: ItemService
   ) { }
 
   ngOnInit() {
@@ -57,6 +58,10 @@ export class TutorCourseOrderDetailPage implements OnInit {
       }
       // TODOS: when add new course category, add new cooresponding img also!!!
     }
+  }
+
+  goToRatingPage(course) {
+    this.router.navigate(["/tutor-rate-student", course]);
   }
 
   goBack(){
