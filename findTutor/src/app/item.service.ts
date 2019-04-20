@@ -33,12 +33,24 @@ export class ItemService {
   ordersdb = firebase.database().ref('orders/');
   student_courses: Array<any> =[];
   tutor_orders: Array<any> =[];
+
+  userdb = firebase.database().ref('users/');
+  studentUser: Array<any> =[];
   
   constructor(
     public db: AngularFirestore,
     public afAuth: AngularFireAuth,
     public events: Events
     ) {
+
+      this.userdb.on('value', resp => {
+        this.studentUser = [];
+        this.studentUser = snapshotToArray_StudentInfo(resp);
+        console.log(this.studentUser.length+" student users loaded");
+        console.log(this.studentUser);
+        this.events.publish('dataloaded',Date.now());
+      });
+
       // bind profile value with id
       this.profiledb.on('value', resp => {
         this.profiles = [];
@@ -154,6 +166,11 @@ export class ItemService {
           });
           console.log("created a new user...");
 
+          firebase.database().ref('users/' + firebaseUser.uid).set({
+            "uid": firebaseUser.uid, 
+            "email": user.email, 
+            "usertype": user.usertype
+          });
 
           let newProfile = firebase.database().ref('profiles').push();
           newProfile.set({
@@ -170,6 +187,17 @@ export class ItemService {
         console.log("user null");
       }
     });
+  }
+
+  getStudentEmail(){
+    console.log("student users:" + this.studentUser);
+    return this.studentUser;
+    // console.log("student user related: " + this.studentUser);
+    //  for (let student of this.studentUser){
+    //    if (student.uid == studentID)
+    //        return student.email;
+    //  }
+    //  return "hyuan2011@gmail.com"; 
   }
 
   // ********************************************************************
@@ -377,5 +405,19 @@ export const snapshotToArray_TutorOrders = snapshot => {
       }
   });
 
+  return returnArr;
+}
+
+
+
+export const snapshotToArray_StudentInfo = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.id = childSnapshot.key;
+      returnArr.push(item);
+      
+  });
   return returnArr;
 }
