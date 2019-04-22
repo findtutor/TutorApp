@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
+import * as firebase from 'firebase';
+import { CourseDetailPage } from '../course-detail/course-detail.page';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-tutor-course-order-detail',
@@ -9,14 +12,25 @@ import { ItemService } from '../item.service';
 })
 export class TutorCourseOrderDetailPage implements OnInit {
   img: String;
+  private studentInfo;
+  studentRating: number;
   course: any;
   quantity: number;
+
 
   constructor(
     public router:Router,
     private route: ActivatedRoute,
-    private itemService: ItemService
-  ) { }
+    private itemService: ItemService,
+    public events: Events
+  ) { 
+    // var self;
+    // events.subscribe('dataloaded', (time) => {
+    //   self.studentInfo= this.itemService.getStudentEmail();
+    //   console.log("student info loaded: " + self.studentInfo);
+    //   });
+    
+  }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -27,7 +41,18 @@ export class TutorCourseOrderDetailPage implements OnInit {
     )
     console.log("course category is " + this.course.category);
     this.setCourseImage(this.course.category);
+    // this.studentInfo = this.itemService.getStudentEmail();
+    // console.log("student info loaded from item service " + this.studentInfo);
+   // this.getStudentEmail(this.course.student_id);
+    //this.getStudentEmail(this.course.student_id);
+   // console.log(test_constructor);
+   // this.studentInfo = this.getStudentEmail(this.course);
+    //firebase.database().ref('users/' + this.course.student_id);
   }
+
+  // getStudentEmail() {
+  //   this.studentInfo = this.itemService.getStudentEmail();
+  // }
 
 
   setCourseImage(courseType) {
@@ -68,4 +93,12 @@ export class TutorCourseOrderDetailPage implements OnInit {
     this.router.navigate(['/tutor/tutor-orders']);
   }
 
+  
+
 }
+
+
+
+
+
+
