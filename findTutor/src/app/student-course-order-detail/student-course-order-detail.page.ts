@@ -10,6 +10,7 @@ import { ItemService } from '../item.service';
 export class StudentCourseOrderDetailPage implements OnInit {
   img: String;
   course: any;
+  status: boolean;
 
   constructor(
     public router:Router,
@@ -26,6 +27,12 @@ export class StudentCourseOrderDetailPage implements OnInit {
     )
     console.log("course category is " + this.course.category);
     this.setCourseImage(this.course.category);
+    if(this.course.status ==="pending") {
+      this.status = false;
+    }
+    else {
+       this.status = true;
+      }
   }
 
   setCourseImage(courseType) {
@@ -57,6 +64,18 @@ export class StudentCourseOrderDetailPage implements OnInit {
       // TODOS: when add new course category, add new cooresponding img also!!!
     }
   }
+  goToRatingPage(course) {
+    this.router.navigate(["/student-rate-tutor", course]);
+  }
+  hideOrNot(rate_status, order_status){
+    if((rate_status === 'false' )&& (order_status === 'accept'))
+    {
+      return false;
+    }
+    else{
+      return true;
+    }
+}
 
   goBack(){
     this.router.navigate(['/student/student-course']);

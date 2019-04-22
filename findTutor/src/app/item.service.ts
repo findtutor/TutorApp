@@ -254,13 +254,19 @@ export class ItemService {
   // ******************** rating related API: ***************************
   // ********************************************************************
   createRating(order_info, rating) {
+    console.log("order_info_rate_status was : "+order_info.rate_status);
+    firebase.database().ref().child('/orders/' + order_info.id)
+        .update({ rate_status: true, status: 'rated'});
+    //order_info.rate_status==true;
+    //let newInfo = firebase.database().ref('orders/' + order_info.id).update(order_info);
+    console.log("order_info_rate_status now is : "+order_info.rate_status);
     let ownerid = firebase.auth().currentUser.uid;
     let newCourse = firebase.database().ref('studentratings').push();
     newCourse.set({
-      "tutor_id":order_info.tutor_id, 
-      "student_id":order_info.student_id, 
+      "tutor_id":order_info.tutor_id,
+      "student_id":order_info.student_id,
       "order_id":order_info.order_id,
-      "rating": rating
+      "rating": rating,
     });
     console.log("create rating successfully!");
   }
@@ -297,6 +303,7 @@ export class ItemService {
       "order_id":newOrder.key,
       "category":course.category,
       "description":course.description,
+      "rate_status": false,
     });
   }
 

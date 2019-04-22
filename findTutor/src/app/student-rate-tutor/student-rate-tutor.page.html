@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="tertiary" class="header">
+    <ion-title><ion-icon ios="ios-create" md="md-create"></ion-icon> Rate Your Tutor</ion-title>
+    <ion-back-button slot="start" (click)="goBackToDetail()"></ion-back-button>
+  </ion-toolbar>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-avatar id="avatar">
+      <img [src]="img">
+    </ion-avatar>
+    <p><strong>How Would You Rate This Tutor?</strong></p>
+    <p id="mark"><ion-icon ios="ios-star" id="star"></ion-icon><span id="text"> 0 - 10</span></p>
+    <ion-range min="0" max="10" [(ngModel)]="quantity" snaps="true" pin=true step="1">
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">10</ion-label>
+    </ion-range>
+    <ion-button color="secondary" shape="round" expand="block" (click)="createRating(order_info, quantity)">Submit</ion-button>
+  </div>
+
+</ion-content>

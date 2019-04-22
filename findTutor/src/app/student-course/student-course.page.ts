@@ -36,9 +36,18 @@ export class StudentCoursePage implements OnInit {
           console.log("couse length" + this.student_courses .length);
     }
   }
+  hideOrNot(value){
+    if(value==="pending"|| value==="deny" || value==="rated")
+      return true;
+    else return false;
+  }
 
   studentCourseOrderDetail(course){
     this.router.navigate(["/student-course-order-detail", course]);
+  }
+  studentRateTutor(course)
+  {
+    this.router.navigate(["/student-rate-tutor", course]);
   }
 
 }
