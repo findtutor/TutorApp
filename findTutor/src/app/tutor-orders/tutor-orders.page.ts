@@ -11,8 +11,9 @@ import { Events } from '@ionic/angular';
 })
 export class TutorOrdersPage implements OnInit {
  
-  tutor_orders=[
-  ];
+  tutor_orders=[];
+  current_user = firebase.auth().currentUser;
+  
   constructor(
     private router: Router,
     public itemService : ItemService,
@@ -25,16 +26,17 @@ export class TutorOrdersPage implements OnInit {
       self.tutor_orders = this.itemService.getTutorOrders();
       console.log("courses loaded: " + self.tutor_orders);
       });
+      // load orders from DB when construct the page
+      this.tutor_orders  = this.itemService.getTutorOrders();
   }
-  current_user = firebase.auth().currentUser;
 
   ngOnInit() {
-    console.log("ngOnInit ...");
-    this.tutor_orders  = this.itemService.getTutorOrders();
-    console.log("courses no: "+this.tutor_orders.length)
-    if(this.tutor_orders  != undefined){
-          console.log("couse length" + this.tutor_orders.length);
-    }
+    // console.log("ngOnInit ...");
+    // this.tutor_orders  = this.itemService.getTutorOrders();
+    // console.log("courses no: "+this.tutor_orders.length)
+    // if(this.tutor_orders  != undefined){
+    //       console.log("couse length" + this.tutor_orders.length);
+    // }
   }
 
   updateOrderAccept(course){

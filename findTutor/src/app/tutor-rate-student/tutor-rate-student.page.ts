@@ -11,6 +11,7 @@ import * as firebase from 'firebase';
 export class TutorRateStudentPage implements OnInit {
   order_info: any;
   quantity: number;
+  is_rated: any;
   
   private img = "https://media.brstatic.com/2017/06/23134715/tom-cruise-networth.jpg";
 
@@ -25,6 +26,7 @@ export class TutorRateStudentPage implements OnInit {
     this.route.params.subscribe(
       param => {
         this.order_info = param;
+        this.is_rated = this.order_info.rate_status;
         console.log("order id = " + this.order_info.id);
       }
     )
