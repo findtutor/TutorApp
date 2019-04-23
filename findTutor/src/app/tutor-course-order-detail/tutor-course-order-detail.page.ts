@@ -16,19 +16,18 @@ export class TutorCourseOrderDetailPage implements OnInit {
   studentRating: number;
   course: any;
   quantity: number;
+  studentid:String;
 
+  userdb = firebase.database().ref('users/');
+  studentUser: Array<any> =[];
+  //studentUser: [];
 
   constructor(
     public router:Router,
     private route: ActivatedRoute,
-    private itemService: ItemService,
+ //   private itemService: ItemService,
     public events: Events
   ) { 
-    // var self;
-    // events.subscribe('dataloaded', (time) => {
-    //   self.studentInfo= this.itemService.getStudentEmail();
-    //   console.log("student info loaded: " + self.studentInfo);
-    //   });
     
   }
 
@@ -41,19 +40,28 @@ export class TutorCourseOrderDetailPage implements OnInit {
     )
     console.log("course category is " + this.course.category);
     this.setCourseImage(this.course.category);
-    // this.studentInfo = this.itemService.getStudentEmail();
-    // console.log("student info loaded from item service " + this.studentInfo);
-   // this.getStudentEmail(this.course.student_id);
-    //this.getStudentEmail(this.course.student_id);
-   // console.log(test_constructor);
-   // this.studentInfo = this.getStudentEmail(this.course);
-    //firebase.database().ref('users/' + this.course.student_id);
+    
+    this.studentid = this.course.student_id;
+    console.log("student idddd: " + this.studentid);
+    
+    
+    this.userdb.on('value', resp => {
+      this.studentUser = [];
+      this.studentUser = this.snapshotToArray_StudentInfo(resp);
+      console.log(this.studentUser.length+" users loaded  ngoninit");
+      console.log(this.studentUser+" users loaded  ngoninit");
+
+      if(this.studentUser.length == 0){
+        console.log("student user not in the user database");
+        this.studentInfo = "student user not in the user database";
+      }
+    //  console.log(this.studentUser);
+      this.events.publish('dataloaded',Date.now());
+    });
+
+    // console.log(this.studentUser + "student user isssss");
+    // console.log(this.length_test + "student user length isssss");
   }
-
-  // getStudentEmail() {
-  //   this.studentInfo = this.itemService.getStudentEmail();
-  // }
-
 
   setCourseImage(courseType) {
     switch (courseType) {
@@ -93,9 +101,24 @@ export class TutorCourseOrderDetailPage implements OnInit {
     this.router.navigate(['/tutor/tutor-orders']);
   }
 
-  
-
+  snapshotToArray_StudentInfo = snapshot => {
+   let returnArr = [];
+    console.log("student idddd: " + this.studentid);
+    snapshot.forEach(childSnapshot => {
+    
+        let item = childSnapshot.val();
+        item.id = childSnapshot.key;
+        if (item.id == this.studentid){
+            console.log("item email is: " + item.email);
+            this.studentInfo = item.email;
+            returnArr.push(item);
+        }
+    });
+   
+    return returnArr;
+  }
 }
+
 
 
 

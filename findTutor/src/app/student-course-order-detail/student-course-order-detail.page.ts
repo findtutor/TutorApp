@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
+import * as firebase from 'firebase';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-student-course-order-detail',
@@ -9,13 +11,19 @@ import { ItemService } from '../item.service';
 })
 export class StudentCourseOrderDetailPage implements OnInit {
   img: String;
+  private tutorInfo;
   course: any;
   status: boolean;
+  tutorid:String;
+
+  userdb = firebase.database().ref('users/');
+  tutorUser: Array<any> =[];
 
   constructor(
     public router:Router,
     private route: ActivatedRoute,
     private itemService: ItemService,
+    public events: Events
   ) { }
 
   ngOnInit() {
@@ -33,6 +41,21 @@ export class StudentCourseOrderDetailPage implements OnInit {
     else {
        this.status = true;
       }
+    
+    this.tutorid = this.course.tutor_id;
+    this.userdb.on('value', resp => {
+        this.tutorUser = [];
+        this.tutorUser = this.snapshotToArray_TutorInfo(resp);
+        console.log(this.tutorUser.length+" users loaded  ngoninit");
+        console.log(this.tutorUser+" users loaded  ngoninit");
+  
+        if(this.tutorUser.length == 0){
+          console.log("tutor user not in the user database");
+          this.tutorInfo = "tutor user not in the user database";
+        }
+      //  console.log(this.studentUser);
+        this.events.publish('dataloaded',Date.now());
+      });
   }
 
   setCourseImage(courseType) {
@@ -80,5 +103,22 @@ export class StudentCourseOrderDetailPage implements OnInit {
   goBack(){
     this.router.navigate(['/student/student-course']);
   }
+
+  snapshotToArray_TutorInfo = snapshot => {
+    let returnArr = [];
+     console.log("tutor idddd: " + this.tutorid);
+     snapshot.forEach(childSnapshot => {
+     
+         let item = childSnapshot.val();
+         item.id = childSnapshot.key;
+         if (item.id == this.tutorid){
+             console.log("item email is: " + item.email);
+             this.tutorInfo = item.email;
+             returnArr.push(item);
+         }
+     });
+    
+     return returnArr;
+   }
 
 }

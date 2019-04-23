@@ -34,8 +34,6 @@ export class ItemService {
   student_courses: Array<any> =[];
   tutor_orders: Array<any> =[];
 
-  userdb = firebase.database().ref('users/');
-  studentUser: Array<any> =[];
   
   constructor(
     public db: AngularFirestore,
@@ -43,13 +41,6 @@ export class ItemService {
     public events: Events
     ) {
 
-      this.userdb.on('value', resp => {
-        this.studentUser = [];
-        this.studentUser = snapshotToArray_StudentInfo(resp);
-        console.log(this.studentUser.length+" student users loaded");
-        console.log(this.studentUser);
-        this.events.publish('dataloaded',Date.now());
-      });
 
       // bind profile value with id
       this.profiledb.on('value', resp => {
@@ -189,16 +180,6 @@ export class ItemService {
     });
   }
 
-  getStudentEmail(){
-    console.log("student users:" + this.studentUser);
-    return this.studentUser;
-    // console.log("student user related: " + this.studentUser);
-    //  for (let student of this.studentUser){
-    //    if (student.uid == studentID)
-    //        return student.email;
-    //  }
-    //  return "hyuan2011@gmail.com"; 
-  }
 
   // ********************************************************************
   // *****************  Profile related API: ****************************
@@ -416,15 +397,3 @@ export const snapshotToArray_TutorOrders = snapshot => {
 }
 
 
-
-export const snapshotToArray_StudentInfo = snapshot => {
-  let returnArr = [];
-
-  snapshot.forEach(childSnapshot => {
-      let item = childSnapshot.val();
-      item.id = childSnapshot.key;
-      returnArr.push(item);
-      
-  });
-  return returnArr;
-}
