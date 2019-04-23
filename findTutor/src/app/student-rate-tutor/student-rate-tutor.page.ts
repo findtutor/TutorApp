@@ -43,6 +43,7 @@ export class StudentRateTutorPage implements OnInit {
     }
     this.goBack();
   }
+  
   goBackToDetail(){
     this.router.navigate(['/student/student-course']);
   }
