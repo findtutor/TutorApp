@@ -13,6 +13,7 @@
           <ion-card-subtitle><ion-icon name="book"></ion-icon> {{course.category}}</ion-card-subtitle>
           <ion-card-title class="content"> {{course.course_name}}</ion-card-title>
         </ion-card-header>
+        <ion-card-content class="content" (click)="goToRatingPage(course)"> <ion-icon id="rate" ios="ios-calculator"></ion-icon> <span id="note"><strong>Rate Your Student</strong></span></ion-card-content>
         <ion-card-content class="content"><strong>Student info:</strong>  {{studentInfo}} </ion-card-content>
         <ion-card-content class="content"><strong>Student rating:</strong> </ion-card-content>
         <ion-card-content class="content"><strong>Description:</strong> {{course.description}}</ion-card-content>
@@ -20,8 +21,6 @@
         <ion-card-content class="content"><strong>End Time:</strong> {{course.end_time}}</ion-card-content>
         <ion-card-content><strong>Price:</strong> {{course.total_price}} <strong>USD</strong></ion-card-content>
         <ion-card-content><strong>Duration:</strong> {{course.unit_number}} <strong> *30 min</strong></ion-card-content>
-        <ion-card-content class="content" (click)="goToRatingPage(course)"> <ion-icon id="rate" ios="ios-calculator"></ion-icon> <span id="note"><strong>Rate Your Student</strong></span>
-        </ion-card-content>
-      </ion-card>
+    </ion-card>
 
 </ion-content>

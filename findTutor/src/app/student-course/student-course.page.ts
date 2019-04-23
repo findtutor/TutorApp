@@ -25,16 +25,18 @@ export class StudentCoursePage implements OnInit {
       self.student_courses = this.itemService.getStudentCourses();
       console.log("courses loaded: " + self.student_courses);
       });
+
+      // load student course when construct the page
+      this.student_courses  = this.itemService.getStudentCourses();
   }
   current_user = firebase.auth().currentUser;
 
   ngOnInit() {
-    console.log("ngOnInit ...");
-    this.student_courses  = this.itemService.getStudentCourses();
-    console.log("courses no: "+this.student_courses.length)
-    if(this.student_courses  != undefined){
-          console.log("couse length" + this.student_courses .length);
-    }
+    // console.log("ngOnInit ...");
+    // console.log("courses no: "+this.student_courses.length)
+    // if(this.student_courses  != undefined){
+    //       console.log("couse length" + this.student_courses .length);
+    // }
   }
   hideOrNot(value){
     if(value==="pending"|| value==="deny" || value==="rated")
