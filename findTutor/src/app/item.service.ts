@@ -25,6 +25,8 @@ export class ItemService {
 
   student_ratingdb = firebase.database().ref('studentratings/');
   student_ratings: Array<any> =[];
+  tutor_ratingdb = firebase.database().ref('tutortratings/');
+  tutor_ratings: Array<any> =[];
   
   coursedb = firebase.database().ref('courses/');
   tutor_courses: Array<any> =[];
@@ -62,6 +64,15 @@ export class ItemService {
         this.events.publish('dataloaded',Date.now());
       });
 
+    // bind tutor rating value with id
+    this.tutor_ratingdb.on('value', resp => {
+      this.tutor_ratings = [];
+      this.tutor_ratings = snapshotToArray(resp);
+      console.log(this.tutor_ratings.length+" items loaded");
+      console.log(this.tutor_ratings);
+
+      this.events.publish('dataloaded',Date.now());
+    });
 
       // load profiles from firebase
       this.database = db;
@@ -263,12 +274,39 @@ export class ItemService {
   // ******************** rating related API: ***************************
   // ********************************************************************
   createRating(order_info, rating) {
-    console.log("order_info_rate_status was : "+order_info.rate_status);
+    console.log("order_info_rate_status was : "+order_info.t_rate_status);
+    if(order_info.s_rate_status==='false')
     firebase.database().ref().child('/orders/' + order_info.id)
-        .update({ rate_status: true, status: 'rated'});
+        .update({ t_rate_status: true, status: 't_rated'});
+    else
+      firebase.database().ref().child('/orders/' + order_info.id)
+          .update({ t_rate_status: true, status: 'rated'});
     //order_info.rate_status==true;
     //let newInfo = firebase.database().ref('orders/' + order_info.id).update(order_info);
-    console.log("order_info_rate_status now is : "+order_info.rate_status);
+    console.log("order_info_rate_status now is : "+order_info.t_rate_status);
+    let ownerid = firebase.auth().currentUser.uid;
+    let newCourse = firebase.database().ref('tutorratings').push();
+    newCourse.set({
+      "tutor_id":order_info.tutor_id,
+      "student_id":order_info.student_id,
+      "order_id":order_info.order_id,
+      "rating": rating,
+      "rate_direction": "t2s",
+    });
+    console.log("create rating successfully!");
+  }
+
+  createStudentRating(order_info, rating) {
+    console.log("order_info_rate_status was : "+order_info.s_rate_status);
+    if(order_info.s_rate_status==='false')
+    firebase.database().ref().child('/orders/' + order_info.id)
+        .update({ s_rate_status: true, status: 's_rated'});
+    else
+      firebase.database().ref().child('/orders/' + order_info.id)
+          .update({ s_rate_status: true, status: 'rated'});
+    //order_info.rate_status==true;
+    //let newInfo = firebase.database().ref('orders/' + order_info.id).update(order_info);
+    console.log("order_info_rate_status now is : "+order_info.s_rate_status);
     let ownerid = firebase.auth().currentUser.uid;
     let newCourse = firebase.database().ref('studentratings').push();
     newCourse.set({
@@ -276,9 +314,11 @@ export class ItemService {
       "student_id":order_info.student_id,
       "order_id":order_info.order_id,
       "rating": rating,
+      "rate_direction": "s2t",
     });
     console.log("create rating successfully!");
   }
+
 
 
   // ********************************************************************
@@ -312,7 +352,8 @@ export class ItemService {
       "order_id":newOrder.key,
       "category":course.category,
       "description":course.description,
-      "rate_status": false,
+      "s_rate_status": false,
+      "t_rate_status": false,
     });
   }
 

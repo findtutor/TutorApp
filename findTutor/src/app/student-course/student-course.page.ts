@@ -39,7 +39,7 @@ export class StudentCoursePage implements OnInit {
     // }
   }
   hideOrNot(value){
-    if(value==="pending"|| value==="deny" || value==="rated")
+    if(value==="pending"|| value==="deny" || value==="s_rated"|| value==="rated")
       return true;
     else return false;
   }
