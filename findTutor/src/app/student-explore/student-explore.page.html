@@ -21,7 +21,7 @@
       <ion-col *ngFor="let category of row">
         <ion-card (click)="categoryDetailPage(category)">
           <ion-card-header>{{category.name}}</ion-card-header>
-          <ion-card-content><img class="catImg" [src]="category.imgurl" /></ion-card-content>
+          <ion-card-content><img class="catImg" [src]="getImg(category.name)" /></ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>

@@ -23,6 +23,7 @@ export class StudentExplorePage implements OnInit {
   categories: Array<any> = [];
   isStudent = false;
   rowList: Array<any> = [];
+  img="";
   searchKey = "";
   constructor(
       private router: Router,
@@ -118,6 +119,36 @@ export class StudentExplorePage implements OnInit {
   }
   openPages(Page, Data){
     this.navCtrl.navigateForward(Page, Data);
+  }
+
+  getImg(courseType){
+    switch (courseType.toLowerCase()) {
+      case "computer science": {
+        this.img = "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg";
+        return this.img;
+      }
+      case "mathematics": {
+        this.img = "https://www.monash.edu/__data/assets/image/0005/848561/17P-0341-Making-sense-of-the-world-Feature-box.jpg";
+        return this.img;
+      }
+      case "business": {
+        this.img = "http://lmc123.com/images/pages/business-strategy.jpg";
+        return this.img;
+      }
+      case "training": {
+        this.img = "http://lakevue.com/wp-content/uploads/2013/04/personal-trainer.jpg";
+        return this.img;
+      }
+      case "physics": {
+        this.img = "http://snagfilms-a.akamaihd.net/b6/f5/105549274aa399567d3082c9b3db/1280-physics-2x.jpg";
+        return this.img;
+      }
+      case "chemistry": {
+        this.img = "https://www.thoughtco.com/thmb/-kvl9EVbWRkDOdNIfJ4c14KcBho=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/formulas-157378066-56ed562c3df78ce5f836b8e6.jpg";
+        return this.img;
+      }
+        // TODOS: when add new course category, add new cooresponding img also!!!
+    }
   }
 }
 
