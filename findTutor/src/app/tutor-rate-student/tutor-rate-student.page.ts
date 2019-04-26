@@ -33,17 +33,18 @@ export class TutorRateStudentPage implements OnInit {
   }
 
   createRating(order_info, quantity){
-    console.log('rate_statusWWW'+order_info.rate_status);
-    if(order_info.rate_status === 'false') {
+    console.log('rate_statusWWW'+order_info.t_rate_status);
+    if(order_info.t_rate_status === 'false') {
       this.itemService.createRating(order_info, quantity);
     }
     else{
-      console.log('rate_status***'+order_info.rate_status);
+      console.log('rate_status***'+order_info.t_rate_status);
     }
-    // this.itemService.createRating(order_info, quantity);
     this.goBack();
   }
-
+  goBackToDetail(){
+    this.router.navigate(['/tutor/tutor-orders']);
+  }
   goBack(){
     this.router.navigate(['/tutor/tutor-orders']);
   }

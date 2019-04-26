@@ -43,12 +43,19 @@ export class TutorOrdersPage implements OnInit {
     course.status = "accept";
     let newInfo = firebase.database().ref('orders/' + course.order_id).update(course);
   }
-
+  hideOrNot(value){
+    if(value==="pending"|| value==="deny" || value==="t_rated"|| value==="rated")
+      return true;
+    else return false;
+  }
   updateOrderDeny(course){
     course.status = "deny";
     let newInfo = firebase.database().ref('orders/' + course.order_id).update(course);
   }
-
+  tutorRateStudent(course)
+  {
+    this.router.navigate(["/tutor-rate-student", course]);
+  }
   courseDetailPage(course){
     this.router.navigate(["/tutor-course-order-detail", course]);
   }

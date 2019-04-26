@@ -92,7 +92,15 @@ export class TutorCourseOrderDetailPage implements OnInit {
       // TODOS: when add new course category, add new cooresponding img also!!!
     }
   }
-
+  hideOrNot(rate_status, order_status){
+    if((rate_status === 'false' )&& (order_status === 'accept'))
+    {
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
   goToRatingPage(course) {
     this.router.navigate(["/tutor-rate-student", course]);
   }
