@@ -10,6 +10,7 @@ import { Events } from '@ionic/angular';
   templateUrl: './tutor-course-order-detail.page.html',
   styleUrls: ['./tutor-course-order-detail.page.scss'],
 })
+
 export class TutorCourseOrderDetailPage implements OnInit {
   img: String;
   private studentInfo;
@@ -58,9 +59,6 @@ export class TutorCourseOrderDetailPage implements OnInit {
     //  console.log(this.studentUser);
       this.events.publish('dataloaded',Date.now());
     });
-
-    // console.log(this.studentUser + "student user isssss");
-    // console.log(this.length_test + "student user length isssss");
   }
 
   setCourseImage(courseType) {
