@@ -21,7 +21,7 @@
         <ion-card-content><strong>Price:</strong> {{course.total_price}} USD</ion-card-content>
         <ion-card-content><strong>Duration:</strong> {{course.unit_number}} * 30 min</ion-card-content>
         <!--<ion-card-content class="content"><strong>Rate your tutor:</strong> </ion-card-content>-->
-        <ion-card-content class="content" (click)="goToRatingPage(course)" [hidden]="hideOrNot(course.rate_status,course.status)"> <ion-icon id="rate" ios="ios-calculator" [hidden]="hideOrNot(course.rate_status,course.status)"></ion-icon> <span id="note" [hidden]="hideOrNot(course.rate_status,course.status)"><strong>Rate the Tutor</strong></span>
+        <ion-card-content class="content" (click)="goToRatingPage(course)" [hidden]="hideOrNot(course.s_rate_status,course.status)"> <ion-icon id="rate" ios="ios-calculator" [hidden]="hideOrNot(course.s_rate_status,course.status)"></ion-icon> <span id="note" [hidden]="hideOrNot(course.s_rate_status,course.status)"><strong>Rate the Tutor</strong></span>
         </ion-card-content>
       </ion-card>
 </ion-content>

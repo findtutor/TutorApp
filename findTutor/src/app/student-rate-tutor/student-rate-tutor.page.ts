@@ -34,12 +34,12 @@ export class StudentRateTutorPage implements OnInit {
   }
 
   createRating(order_info, quantity){
-    console.log('rate_statusWWW'+order_info.rate_status);
-    if(order_info.rate_status === 'false') {
-      this.itemService.createRating(order_info, quantity);
+    console.log('rate_statusWWW'+order_info.s_rate_status);
+    if(order_info.s_rate_status === 'false') {
+      this.itemService.createStudentRating(order_info, quantity);
     }
     else{
-      console.log('rate_status***'+order_info.rate_status);
+      console.log('rate_status***'+order_info.s_rate_status);
     }
     this.goBack();
   }

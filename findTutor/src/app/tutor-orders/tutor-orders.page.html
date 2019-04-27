@@ -23,6 +23,7 @@
                     <ion-button class="btn" (click)="updateOrderAccept(course)" fill="outline" >Accept</ion-button> <br />
                     <ion-button class="btn" (click)="updateOrderDeny(course)" fill="outline" >Deny</ion-button>
                  </p>
+                 <ion-button class="btn" (click)="tutorRateStudent(course)" fill="outline" slot="end" [hidden]="hideOrNot(course.status)">Rate</ion-button><br />
                 <!-- <ion-button class="btn" (click)="updateCourse(course)" fill="outline" slot="end">Update</ion-button><br /> -->
             </ion-label>
          </ion-item>       
