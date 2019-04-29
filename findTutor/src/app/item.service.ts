@@ -298,7 +298,7 @@ export class ItemService {
 
   createStudentRating(order_info, rating) {
     console.log("order_info_rate_status was : "+order_info.s_rate_status);
-    if(order_info.s_rate_status==='false')
+    if(order_info.t_rate_status==='false')
     firebase.database().ref().child('/orders/' + order_info.id)
         .update({ s_rate_status: true, status: 's_rated'});
     else
