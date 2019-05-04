@@ -13,10 +13,14 @@
         </ion-avatar>
     </div>
         <form [formGroup]="tutor_profile_form" (submit)="updateProfile(tutor_profile_form.value)">
-          <ion-item>
+          <!-- <ion-item>
             <ion-label  class="label" position="floating">Image</ion-label>
             <ion-input type="text" formControlName="image" required></ion-input>
-          </ion-item>
+          </ion-item> -->
+          <ion-item>
+            <ion-button (click)="pickImage()">Pick Image</ion-button>
+            <ion-img [src]="imgfile" ></ion-img>
+        </ion-item>
           <ion-item>
             <ion-label  class="label" position="floating">Name</ion-label>
             <ion-input type="text" formControlName="username" required></ion-input>

@@ -18,16 +18,7 @@ export class StudentCoursePage implements OnInit {
     public itemService : ItemService,
     public events: Events
   ) { 
-    var self = this;
-    events.subscribe('dataloaded', (time) => {
-      // user and time are the same arguments passed in `events.publish(user, time)`
-      console.log('data load time:', time);
-      self.student_courses = this.itemService.getStudentCourses();
-      console.log("courses loaded: " + self.student_courses);
-      });
-
-      // load student course when construct the page
-      this.student_courses  = this.itemService.getStudentCourses();
+    
   }
   current_user = firebase.auth().currentUser;
 
@@ -37,6 +28,16 @@ export class StudentCoursePage implements OnInit {
     // if(this.student_courses  != undefined){
     //       console.log("couse length" + this.student_courses .length);
     // }
+    var self = this;
+    this.events.subscribe('dataloaded', (time) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      console.log('data load time:', time);
+      self.student_courses = this.itemService.getStudentCourses();
+      console.log("courses loaded: " + self.student_courses);
+      });
+
+      // load student course when construct the page
+      this.student_courses  = this.itemService.getStudentCourses();
   }
   hideOrNot(value){
     if(value==="pending"|| value==="deny" || value==="s_rated"|| value==="rated")

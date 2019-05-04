@@ -23,18 +23,20 @@ export class TutorCoursePage implements OnInit {
    // public db: AngularFirestore,
    // public afAuth: AngularFireAuth,
     public events: Events) { 
-      var self = this;
-      events.subscribe('dataloaded', (time) => {
-        // user and time are the same arguments passed in `events.publish(user, time)`
-        console.log('data load time:', time);
-        self.tutor_courses = this.itemService.getTutorCourses();
-        console.log("courses loaded: " + self.tutor_courses);
-        });
+      
     }
     current_user = firebase.auth().currentUser;
 
 
   ngOnInit() {
+
+    var self = this;
+      this.events.subscribe('dataloaded', (time) => {
+        // user and time are the same arguments passed in `events.publish(user, time)`
+        console.log('data load time:', time);
+        self.tutor_courses = this.itemService.getTutorCourses();
+        console.log("courses loaded: " + self.tutor_courses);
+        });
 
     console.log("ngOnInit ...");
     this.tutor_courses  = this.itemService.getTutorCourses();

@@ -16,6 +16,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { ItemService } from './item.service';
 
+import { Camera } from '@ionic-native/camera/ngx';
+import { File } from '@ionic-native/file/ngx';
+
 // import { AngularFireDatabase } from '@angular/fire/database';
 
 
@@ -23,6 +26,7 @@ import { ItemService } from './item.service';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    
     BrowserModule, 
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFirestoreModule, 
@@ -31,6 +35,8 @@ import { ItemService } from './item.service';
     AppRoutingModule,
   ],
   providers: [
+    File,
+    Camera,
     AngularFirestore,
     StatusBar,
     SplashScreen,
