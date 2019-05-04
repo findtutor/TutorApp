@@ -20,7 +20,9 @@ export class TutorCourseOrderDetailPage implements OnInit {
   studentid:String;
 
   userdb = firebase.database().ref('users/');
+  tutorratingdb = firebase.database().ref('tutorratings/');
   studentUser: Array<any> =[];
+  tutorRating:Array<any> =[];
   //studentUser: [];
 
   constructor(
@@ -55,6 +57,20 @@ export class TutorCourseOrderDetailPage implements OnInit {
       if(this.studentUser.length == 0){
         console.log("student user not in the user database");
         this.studentInfo = "student user not in the user database";
+      }
+    //  console.log(this.studentUser);
+      this.events.publish('dataloaded',Date.now());
+    });
+
+    this.tutorratingdb.on('value', resp => {
+      this.tutorRating = [];
+      this.tutorRating = this.snapshotToArray_StudentRating(resp);
+      console.log(this.tutorRating.length+" rating loaded  ngoninit");
+      console.log(this.tutorRating+" ranting loaded  ngoninit");
+
+      if(this.tutorRating.length == 0){
+        console.log("student user not rated yet");
+        //this.tutorRating = "tutor user not rated yet";
       }
     //  console.log(this.studentUser);
       this.events.publish('dataloaded',Date.now());
@@ -123,6 +139,29 @@ export class TutorCourseOrderDetailPage implements OnInit {
    
     return returnArr;
   }
+
+  snapshotToArray_StudentRating = snapshot => {
+    let returnArr = [];
+    let count = 0;
+     console.log("tutor idddd: " + this.studentid);
+     snapshot.forEach(childSnapshot => {
+     
+         let item = childSnapshot.val();
+         item.id = childSnapshot.key;
+         if (item.student_id == this.studentid){
+             console.log("student id found: " + item.student_id);
+             //this.tutorRating = Number(this.tutorRating) + Number(item.rating);
+             this.studentRating = item.rating;
+             console.log("cumulative rating: " + this.studentRating);
+             count = count + 1;
+             returnArr.push(item);
+         }
+     });
+     this.studentRating = this.studentRating/count;
+     console.log("average rating: " + this.studentRating);
+    
+     return returnArr;
+   }
 }
 
 

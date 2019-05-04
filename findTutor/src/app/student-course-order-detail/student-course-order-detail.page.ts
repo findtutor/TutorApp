@@ -3,6 +3,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { ItemService } from '../item.service';
 import * as firebase from 'firebase';
 import { Events } from '@ionic/angular';
+import { TutorPageRoutingModule } from '../tutor/tutor.router.module';
 
 @Component({
   selector: 'app-student-course-order-detail',
@@ -12,12 +13,15 @@ import { Events } from '@ionic/angular';
 export class StudentCourseOrderDetailPage implements OnInit {
   img: String;
   private tutorInfo;
+  tutorRating: any;
   course: any;
   status: boolean;
   tutorid:String;
 
   userdb = firebase.database().ref('users/');
+  studentratingdb = firebase.database().ref('studentratings/');
   tutorUser: Array<any> =[];
+  studentRating:Array<any> =[];
 
   constructor(
     public router:Router,
@@ -52,6 +56,21 @@ export class StudentCourseOrderDetailPage implements OnInit {
         if(this.tutorUser.length == 0){
           console.log("tutor user not in the user database");
           this.tutorInfo = "tutor user not in the user database";
+        }
+      //  console.log(this.studentUser);
+        this.events.publish('dataloaded',Date.now());
+      });
+
+
+      this.studentratingdb.on('value', resp => {
+        this.studentRating = [];
+        this.studentRating = this.snapshotToArray_TutorRating(resp);
+        console.log(this.studentRating.length+" rating loaded  ngoninit");
+        console.log(this.studentRating+" ranting loaded  ngoninit");
+  
+        if(this.studentRating.length == 0){
+          console.log("tutor user not rated yet");
+          //this.tutorRating = "tutor user not rated yet";
         }
       //  console.log(this.studentUser);
         this.events.publish('dataloaded',Date.now());
@@ -117,6 +136,29 @@ export class StudentCourseOrderDetailPage implements OnInit {
              returnArr.push(item);
          }
      });
+    
+     return returnArr;
+   }
+
+   snapshotToArray_TutorRating = snapshot => {
+    let returnArr = [];
+    let count = 0;
+     console.log("tutor idddd: " + this.tutorid);
+     snapshot.forEach(childSnapshot => {
+     
+         let item = childSnapshot.val();
+         item.id = childSnapshot.key;
+         if (item.tutor_id == this.tutorid){
+             console.log("tutor id found: " + item.tutor_id);
+             //this.tutorRating = Number(this.tutorRating) + Number(item.rating);
+             this.tutorRating = item.rating;
+             console.log("cumulative rating: " + this.tutorRating);
+             count = count + 1;
+             returnArr.push(item);
+         }
+     });
+     this.tutorRating = this.tutorRating/count;
+     console.log("average rating: " + this.tutorRating);
     
      return returnArr;
    }
