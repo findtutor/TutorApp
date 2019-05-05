@@ -37,6 +37,15 @@ export class TutorOrdersPage implements OnInit {
     // if(this.tutor_orders  != undefined){
     //       console.log("couse length" + this.tutor_orders.length);
     // }
+    var self = this;
+    this.events.subscribe('dataloaded', (time) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      console.log('data load time:', time);
+      self.tutor_orders = this.itemService.getTutorOrders();
+      console.log("courses loaded: " + self.tutor_orders);
+    });
+    // load orders from DB when construct the page
+    this.tutor_orders  = this.itemService.getTutorOrders();
   }
 
   updateOrderAccept(course){
