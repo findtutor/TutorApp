@@ -36,6 +36,9 @@ export class ItemService {
   student_courses: Array<any> =[];
   tutor_orders: Array<any> =[];
 
+  userdb = firebase.database().ref('users/');
+  users: Array<any> =[];
+
   
   constructor(
     public db: AngularFirestore,
@@ -119,33 +122,56 @@ export class ItemService {
       });
 
       // load users from firebase
-      let users = db.collection('users').valueChanges();
-      console.log(users);
-      users.subscribe(items => {
-        this.myusers = items;
-        // this.mycartitems = snapshotToArray(items);
-        console.log(this.myusers.length);
+      // let users = db.collection('users').valueChanges();
+      // console.log(users);
+      // users.subscribe(items => {
+      //   this.myusers = items;
+      //   // this.mycartitems = snapshotToArray(items);
+      //   console.log(this.myusers.length);
+      // });
+
+      //load users
+      this.userdb.on('value', resp => {
+        this.users = [];
+        this.users = snapshotToArray_Users(resp);
+        console.log(this.users.length+" users loaded");
+        console.log(this.users);
+  
+        this.events.publish('dataloaded',Date.now());
       });
-
-
      }
 
 
   // ********************************************************************
   // ************  User(tutor/student) related API: *********************
   // ********************************************************************
+  // getusertype(userid){
+  //   // console.log(this.myusers.length +" users found");
+  //   // console.log(userid);
+  //   for (var i = this.myusers.length - 1; i >= 0; i--) {
+  //     //console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
+  //     if(this.myusers[i].uid == userid){
+  //       console.log(this.myusers[i].email +" "+this.myusers[i].usertype);
+  //       this.usertype = this.myusers[i].usertype;
+  //       return this.myusers[i].usertype;
+
+  //     }
+  //   }
+  // }
+
   getusertype(userid){
     // console.log(this.myusers.length +" users found");
-    // console.log(userid);
-    for (var i = this.myusers.length - 1; i >= 0; i--) {
-      //console.log(this.myusers[i].uid + " " + this.myusers[i].usertype);
-      if(this.myusers[i].uid == userid){
-        console.log(this.myusers[i].email +" "+this.myusers[i].usertype);
-        this.usertype = this.myusers[i].usertype;
-        return this.myusers[i].usertype;
+    console.log(userid);
+    console.log("current user " + this.users);
 
+    for(let user of this.users) {
+      if(user.uid === userid) {
+        console.log("user type is " + user.usertype);
+        return user.usertype;
       }
     }
+    
+    return "users_not_found";
   }
  
   createUser(user) {
@@ -161,11 +187,11 @@ export class ItemService {
     this.afAuth.auth.onAuthStateChanged(firebaseUser => {
       if(firebaseUser && hasCreated == true) {
 
-          this.db.collection('/users').doc(firebaseUser.uid).set({
-            "uid": firebaseUser.uid, 
-            "email": user.email, 
-            "usertype": user.usertype
-          });
+          // this.db.collection('/users').doc(firebaseUser.uid).set({
+          //   "uid": firebaseUser.uid, 
+          //   "email": user.email, 
+          //   "usertype": user.usertype
+          // });
           console.log("created a new user...");
 
           firebase.database().ref('users/' + firebaseUser.uid).set({
@@ -432,6 +458,22 @@ export const snapshotToArray_TutorOrders = snapshot => {
      // console.log("course own id" + item.ownerid);
      // console.log("current user: " + firebase.auth().currentUser.uid);
       if (item.tutor_id == firebase.auth().currentUser.uid){
+          returnArr.push(item);
+      }
+  });
+
+  return returnArr;
+}
+
+export const snapshotToArray_Users = snapshot => {
+  let returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+      let item = childSnapshot.val();
+      item.id = childSnapshot.key;
+     // console.log("course own id" + item.ownerid);
+      console.log("current user: " + firebase.auth().currentUser.uid);
+      if (item.id == firebase.auth().currentUser.uid){
           returnArr.push(item);
       }
   });
