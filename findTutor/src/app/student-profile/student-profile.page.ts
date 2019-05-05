@@ -40,7 +40,7 @@ export class StudentProfilePage implements OnInit {
   }
 
   updateStudentProfile(profile){
-    console.log("currrrrrr idddd = " + this.profile.id);// undefined
+    console.log("currrrrrr idddd = " + this.profile.uid);// undefined
     this.router.navigate(["/edit-student-profile", profile]);
   }
 

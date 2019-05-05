@@ -44,7 +44,7 @@ export class EditTutorProfilePage implements OnInit {
         console.log("param = " + param);
         this.cur_profile = param;
         console.log("current profile is " + this.cur_profile);
-        console.log("current profile id is = " + this.cur_profile.id);
+        console.log("current profile id is = " + this.cur_profile.uid);
         this.tutor_profile_form.patchValue({image:this.cur_profile.image});
         this.tutor_profile_form.patchValue({username:this.cur_profile.username});
         this.tutor_profile_form.patchValue({contact_info: this.cur_profile.contact_info});
@@ -166,7 +166,7 @@ export class EditTutorProfilePage implements OnInit {
   updateProfile(value) {
     console.log("new profile contact_info = " + value.contact_info);
     let newProfile = {
-      id: this.cur_profile.id,
+      uid: this.cur_profile.uid,
      // image: value.image,
       image: this.imgfile,
       username: value.username,

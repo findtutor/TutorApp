@@ -41,7 +41,7 @@ export class EditStudentProfilePage implements OnInit {
         console.log("param = " + param);
         this.cur_profile = param;
         console.log("current profile is " + this.cur_profile);
-        console.log("current profile id is = " + this.cur_profile.id);
+        console.log("current profile id is = " + this.cur_profile.uid);
         this.student_profile_form.patchValue({image:this.cur_profile.image});
         this.student_profile_form.patchValue({username:this.cur_profile.username});
         this.student_profile_form.patchValue({contact_info: this.cur_profile.contact_info});
@@ -160,9 +160,9 @@ export class EditStudentProfilePage implements OnInit {
 
   updateProfile(value) {
     console.log("valueeeee username is " + value.username);
-    console.log("currrrent profile id issss: " + this.cur_profile.id);
+    console.log("currrrent profile id issss: " + this.cur_profile.uid);
     let newProfile = {
-      id: this.cur_profile.id,
+      uid: this.cur_profile.uid,
      // image: value.image,
       image: this.imgfile,
       username: value.username,
