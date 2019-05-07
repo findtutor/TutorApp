@@ -73,7 +73,7 @@ export class StudentCourseDetailPage implements OnInit {
   // TODOS: setCourseImage function to be finished
   setCourseImage(courseType) {
     switch (courseType) {
-      case "computer_science": {
+      case "computer science": {
         this.img = "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg";
         break;
       }
@@ -95,6 +95,14 @@ export class StudentCourseDetailPage implements OnInit {
       }
       case "chemistry": {
         this.img = "https://www.thoughtco.com/thmb/-kvl9EVbWRkDOdNIfJ4c14KcBho=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/formulas-157378066-56ed562c3df78ce5f836b8e6.jpg";
+        break;
+      }
+      case "language": {
+        this.img = "https://cdn-images-1.medium.com/max/1600/1*nNxybrXr-YPikYvaXyDbkQ.jpeg";
+        break;
+      }
+      case "physical science and engineering": {
+        this.img = "https://img.haikudeck.com/mg/BA390EFF-28CD-4B2B-9F99-783FAC9BE158.jpg";
         break;
       }
       // TODOS: when add new course category, add new cooresponding img also!!!
