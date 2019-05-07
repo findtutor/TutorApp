@@ -37,7 +37,7 @@ export class CourseDetailPage implements OnInit {
 
   setCourseImage(courseType) {
     switch (courseType) {
-      case "computer_science": {
+      case "computer science": {
         this.img = "https://s3.amazonaws.com/msoe/files/callouts/wide_sml_computer-science-landing-page.jpg";
         break;
       }

@@ -6,16 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <!--<ion-searchbar placeholder="search a course you like" [showCancelButton]="true" (ionInput)="getItems($event)"></ion-searchbar>-->
   <ion-searchbar #q placeholder="search a course you like" [showCancelButton]="true" (keyup.enter)="searchResultPage(q.value)"></ion-searchbar>
-  <!--<ion-list>-->
-    <!--<ion-item *ngFor="let category of categoryList" (click)="categoryDetailPage(category)">-->
-      <!--<h2> {{ category.name }} </h2>-->
-    <!--</ion-item>-->
-  <!--</ion-list>-->
-  <!--<ion-item>-->
-  <!--<p>TODO: search related courses/browse a list of available courses. Need categoryDetailPage!!</p>-->
-  <!--</ion-item>-->
   <ion-grid>
     <ion-row *ngFor="let row of rowList">
       <ion-col *ngFor="let category of row">
@@ -26,11 +17,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!--<ion-list *ngFor="let category of categoryList">-->
-    <!--<ion-card (click)="categoryDetailPage(category)">-->
-      <!--<ion-card-header>{{category.name}}</ion-card-header>-->
-      <!--<ion-card-content><img [src]="category.imgurl" /></ion-card-content>-->
-    <!--</ion-card>-->
-  <!--</ion-list>-->
-
 </ion-content>

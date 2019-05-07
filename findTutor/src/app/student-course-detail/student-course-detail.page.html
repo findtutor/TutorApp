@@ -16,8 +16,12 @@
         <ion-card-content class="content"><strong>Tutor info:</strong> {{tutorInfo}} </ion-card-content>
         <ion-card-content class="content"><strong>Tutor rating:</strong> {{tutorRating}}</ion-card-content>
         <ion-card-content class="content"><strong>Description:</strong> {{course.description}}</ion-card-content>
-        <ion-card-content class="content"><strong>Start Time:</strong> {{course.start_time}}</ion-card-content>
-        <ion-card-content class="content"><strong>End Time:</strong> {{course.end_time}}</ion-card-content>
+        <ion-card-content class="content">
+            <strong>Start Time:</strong> <ion-datetime displayFormat="MM/DD/YYYY,hh:mm A" [(ngModel)]="course.start_time"></ion-datetime>
+        </ion-card-content>
+        <ion-card-content class="content">
+            <strong>End Time:</strong> <ion-datetime displayFormat="MM/DD/YYYY,hh:mm A" [(ngModel)]="course.end_time"></ion-datetime>
+        </ion-card-content>
         <ion-card-content><strong>Price:</strong> {{course.price}} <strong>USD</strong></ion-card-content>
         <ion-card-content class="content"><strong>Quantity</strong>(30min/Unit):</ion-card-content>
         <ion-card-content>
